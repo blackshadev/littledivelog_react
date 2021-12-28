@@ -1,0 +1,51 @@
+{
+    // based on  https://gitlab.com/FuturePortal/RickvanderStaaij/-/blob/master/.eslintrc.json
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "plugin:json/recommended",
+        "plugin:react-hooks/recommended"
+    ],
+    "plugins": ["simple-import-sort", "sort-keys-fix"],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "rules": {
+        "simple-import-sort/imports": ["error", {
+            "groups": [
+                // React
+                ["^(react|react-dom)$"],
+                ["^styled-components$"],
+                // other packages. Node packages first
+                [
+                    "^(assert|buffer|child_process|cluster|console|constants|crypto|dgram|dns|domain|events|fs|http|https|module|net|os|path|punycode|querystring|readline|repl|stream|string_decoder|sys|timers|tls|tty|url|util|vm|zlib|freelist|v8|process|async_hooks|http2|perf_hooks)(/.*|$)",
+                    "^@?\\w"
+                ],
+                // Internal packages, parent imports, other relative imports
+                [
+                    "^(components|hooks|helpers|services|localization|pages|state|themes|redux)(/.*|$)",
+                    "^\\.\\.(?!/?$)",
+                    "^\\.\\./?$",
+                    "^\\./(?=.*/)(?!/?$)",
+                    "^\\.(?!/?$)",
+                    "^\\./?$"
+                ],
+                // Assets
+                ["^(svgs|images|fonts)(/.*|$)", "^.+\\.(svg|png|jpg|gif)$"],
+                // Side effects and Style imports.
+                ["^\\u0000", "^.+\\.s?css$"]
+            ]
+        }]
+    }
+
+}
