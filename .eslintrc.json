@@ -8,9 +8,14 @@
         "plugin:json/recommended",
         "plugin:react-hooks/recommended"
     ],
-    "plugins": ["simple-import-sort", "sort-keys-fix"],
+    "plugins": [
+        "simple-import-sort",
+        "sort-keys-fix",
+        "react",
+        "@typescript-eslint"
+    ],
     "parserOptions": {
-        "ecmaVersion": 2018,
+        "ecmaVersion": "latest",
         "ecmaFeatures": {
             "jsx": true
         }

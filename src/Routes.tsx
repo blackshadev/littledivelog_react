@@ -1,16 +1,22 @@
-import React from "react"
+import React from 'react';
 
-import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router-dom";
+import { BrowserRouter, Route, Routes as RouterRoutes } from 'react-router-dom';
 
-import Home from "./pages/Home";
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Login from './pages/Login';
 
-const Routes = () => 
+const Routes = () => (
     <>
         <BrowserRouter>
             <RouterRoutes>
-                <Route index element={<Home />}></Route>
+                <Route element={<Layout />}>
+                    <Route index element={<Home />}></Route>
+                    <Route path="/login" element={<Login />}></Route>
+                </Route>
             </RouterRoutes>
         </BrowserRouter>
     </>
+);
 
 export default Routes;
