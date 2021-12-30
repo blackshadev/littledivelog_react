@@ -6,7 +6,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 
-const Routes = () => (
+const Routes: React.FC = () => (
     <>
         <BrowserRouter>
             <RouterRoutes>

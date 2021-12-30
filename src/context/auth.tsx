@@ -12,7 +12,7 @@ const AuthProvider: React.FC<{ children?: React.ReactNode | undefined }> = ({
     const [state, dispatch] = useReducer(authReducer, initialState);
 
     return (
-        <AuthContext.Provider value={{ state, dispatch }}>
+        <AuthContext.Provider value={{ dispatch, state }}>
             {children}
         </AuthContext.Provider>
     );
