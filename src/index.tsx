@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import AuthProvider from './context/auth';
 import reportWebVitals from './reportWebVitals';
 import ResetStyle from './reset.style';
 import Routes from './Routes';
 
 ReactDOM.render(
     <React.StrictMode>
-        <ResetStyle />
-        <Routes />
+        <AuthProvider>
+            <ResetStyle />
+            <Routes />
+        </AuthProvider>
     </React.StrictMode>,
     document.getElementById('root'),
 );

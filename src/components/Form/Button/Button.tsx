@@ -1,10 +1,8 @@
-import React from 'react';
-
 import styled from 'styled-components';
 
-import colors from '../../styling/colors';
-import misc from '../../styling/misc';
-import spacing from '../../styling/spacing';
+import colors from '../../../styling/colors';
+import misc from '../../../styling/misc';
+import spacing from '../../../styling/spacing';
 
 const Button = styled.button`
     &:focus {

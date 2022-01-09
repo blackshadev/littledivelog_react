@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
+import * as api from '../api/auth';
 import Button from '../components/Form/Button';
-import FormInput from '../components/Form/FormInput';
+import Form from '../components/Form/Form';
+import FormInput from '../components/Form/FormElement';
+import { AuthContext } from '../context/auth';
+import * as authActions from '../store/auth/actions';
 
 const Login: React.FC = () => {
-    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { dispatch } = useContext(AuthContext);
+
+    async function handleSubmit(): Promise<void> {
+        const login = await api.login({ email, password });
+        dispatch(
+            authActions.loggedIn({
+                accessToken: login.access_token,
+                refreshToken: login.refresh_token,
+            }),
+        );
+    }
 
     return (
-        <form>
+        <Form onSubmit={handleSubmit}>
             <FormInput
+                name="email"
                 label="Email"
                 placeholder="john@doe.com"
-                value={userName}
+                value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
-                    setUserName(e.target.value)
+                    setEmail(e.target.value)
                 }
             ></FormInput>
             <FormInput
+                name="password"
                 label="Password"
                 placeholder="Password"
                 type="password"
@@ -27,7 +44,7 @@ const Login: React.FC = () => {
                 }
             ></FormInput>
             <Button>Login</Button>
-        </form>
+        </Form>
     );
 };
 

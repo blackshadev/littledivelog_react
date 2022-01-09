@@ -1,5 +1,4 @@
 export type AuthContextType = {
-    user?: string;
     refreshToken?: string;
     accessToken?: string;
 };
