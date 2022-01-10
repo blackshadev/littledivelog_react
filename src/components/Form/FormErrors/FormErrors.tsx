@@ -1,19 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { ErrorItem, ErrorList } from './components';
+import { getFormErrors } from '../../../store/form/selectors';
+import ErrorList from '../ErrorList';
+import FormContext from '../Form/FormContext';
 
-const FormErrors: React.FC<{ errors: string[] }> = ({ errors }) => {
-    if (!errors.length) {
-        return <></>;
-    }
+const FormErrors: React.FC = () => {
+    const { state } = useContext(FormContext);
+    const formError = getFormErrors(state);
 
-    return (
-        <ErrorList>
-            {errors.map((e) => (
-                <ErrorItem key={e}>{e}</ErrorItem>
-            ))}
-        </ErrorList>
-    );
+    const errors = formError ? [formError.message] : [];
+
+    return <ErrorList errors={errors} />;
 };
 
 export default FormErrors;

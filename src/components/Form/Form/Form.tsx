@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 
 import { setError } from '../../../store/form/actions';
-import { getFormErrors } from '../../../store/form/selectors';
 import FormErrors from '../FormErrors';
 import FormContext, { FormContextProvider } from './FormContext';
 
@@ -12,8 +11,7 @@ const InnerForm: React.FC<
         onSubmit: AsyncFormHandler;
     }>
 > = ({ children, onSubmit }) => {
-    const { state, dispatch } = useContext(FormContext);
-    const formError = getFormErrors(state);
+    const { dispatch } = useContext(FormContext);
 
     function submitHandler(event: React.FormEvent): void {
         event.preventDefault();
@@ -28,7 +26,7 @@ const InnerForm: React.FC<
     return (
         <form onSubmit={submitHandler}>
             {children}
-            {formError && <FormErrors errors={[formError.message]} />}
+            <FormErrors />
         </form>
     );
 };

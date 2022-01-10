@@ -1,12 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
-import { getFieldsErrors } from '../../../store/form/selectors';
 import colors from '../../../styling/colors';
 import spacing from '../../../styling/spacing';
-import FormContext from '../Form/FormContext';
-import FormErrors from '../FormErrors';
+import FormFieldErrors from '../FormFieldErrors';
 import { StyledInput } from '../Input/Input';
 import FormElementContext from './FormElementContext';
 
@@ -42,10 +40,6 @@ const FormElement: React.FC<
     React.PropsWithChildren<{ label: string; name: string }>
 > = ({ label, children, name }) => {
     const [focussed, setFocussed] = useState(false);
-    const { state } = useContext(FormContext);
-    const fieldsErrors = getFieldsErrors(state);
-
-    const errors = fieldsErrors?.forField(name) ?? [];
 
     return (
         <FormElementContext.Provider
@@ -58,7 +52,7 @@ const FormElement: React.FC<
             <Container focussed={focussed}>
                 <Label>{label}</Label>
                 {children}
-                <FormErrors errors={errors} />
+                <FormFieldErrors name={name} />
             </Container>
         </FormElementContext.Provider>
     );
