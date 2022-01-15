@@ -4,7 +4,7 @@ import * as api from '../api/auth';
 import Button from '../components/Form/Button';
 import Form from '../components/Form/Form';
 import FormInput from '../components/Form/FormElement';
-import { AuthContext } from '../context/auth';
+import { AuthContext } from '../context/auth/auth';
 import * as authActions from '../store/auth/actions';
 
 const Login: React.FC = () => {

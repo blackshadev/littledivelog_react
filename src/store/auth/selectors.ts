@@ -8,3 +8,8 @@ export const isLoggedIn = createSelector(
     defaultSelector,
     (state) => !!state.refreshToken,
 );
+
+export const getAccessToken = createSelector(
+    defaultSelector,
+    (state) => state.accessToken,
+);

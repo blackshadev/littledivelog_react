@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { AuthContext } from '../../context/auth';
+import { AuthContext } from '../../context/auth/auth';
 import { isLoggedIn as isLoggedInSelector } from '../../store/auth/selectors';
 import { Nav } from './components';
 
@@ -22,9 +22,14 @@ const Navigation: React.FC = () => {
                     </li>
                 )}
                 {isLoggedIn && (
-                    <li>
-                        <Link to="/logout">Logout</Link>
-                    </li>
+                    <>
+                        <li>
+                            <Link to="/dives">Dives</Link>
+                        </li>
+                        <li>
+                            <Link to="/logout">Logout</Link>
+                        </li>
+                    </>
                 )}
             </ul>
         </Nav>

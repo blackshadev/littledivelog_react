@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer, useState } from 'react';
 
-import * as actions from '../store/auth/actions';
-import { authReducer } from '../store/auth/reducer';
-import { initialState } from '../store/auth/state';
-import createReducerContext from '../store/createReducerContext';
+import * as actions from '../../store/auth/actions';
+import { authReducer } from '../../store/auth/reducer';
+import { initialState } from '../../store/auth/state';
+import createReducerContext from '../../store/createReducerContext';
 
 export const AuthContext = createReducerContext(initialState);
 AuthContext.displayName = 'AuthContext';
