@@ -5,6 +5,7 @@ import FormErrors from '../FormErrors';
 import FormContext, { FormContextProvider } from './FormContext';
 
 type AsyncFormHandler = (ev: React.FormEvent) => Promise<void>;
+type AsyncChangeHandler = (ev: React.ChangeEvent) => Promise<void>;
 
 const InnerForm: React.FC<
     React.PropsWithChildren<{
@@ -32,10 +33,13 @@ const InnerForm: React.FC<
 };
 
 const Form: React.FC<
-    React.PropsWithChildren<{ onSubmit: AsyncFormHandler }>
-> = ({ children, onSubmit }) => {
+    React.PropsWithChildren<{
+        onSubmit: AsyncFormHandler;
+        onChange?: AsyncChangeHandler;
+    }>
+> = ({ children, onSubmit, onChange }) => {
     return (
-        <FormContextProvider>
+        <FormContextProvider onChange={onChange}>
             <InnerForm onSubmit={onSubmit}>{children}</InnerForm>
         </FormContextProvider>
     );

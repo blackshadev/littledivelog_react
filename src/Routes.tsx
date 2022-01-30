@@ -1,5 +1,6 @@
 import React from 'react';
 
+import DiveDetails from './pages/DiveDetails';
 import Dives from './pages/Dives';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -20,7 +21,7 @@ const _allRoutes: { [key in Route]: RouteProperties } = {
     [Route.Home]: { element: <Home />, path: '/' },
     [Route.Login]: { element: <Login />, path: '/login' },
     [Route.Dives]: { element: <Dives />, path: '/dives' },
-    [Route.DiveDetail]: { element: <Dives />, path: '/dives/:diveId' },
+    [Route.DiveDetail]: { element: <DiveDetails />, path: '/dives/:diveId' },
 };
 
 export function getRouteProperties(route: Route): RouteProperties {

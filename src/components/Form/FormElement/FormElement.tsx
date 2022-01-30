@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import colors from '../../../styling/colors';
 import spacing from '../../../styling/spacing';
 import FormFieldErrors from '../FormFieldErrors';
-import { StyledInput } from '../Input/Input';
+import { StyledInput } from '../Inputs/Input/Input';
 import FormElementContext from './FormElementContext';
 
 const Label = styled.label`
