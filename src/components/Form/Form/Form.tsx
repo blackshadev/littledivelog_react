@@ -1,47 +1,79 @@
-import React, { useContext } from 'react';
+import React, { FC, useRef, useState } from 'react';
 
-import { setError } from '../../../store/form/actions';
+import {
+    FieldValues,
+    FormProvider,
+    Path,
+    useFormContext,
+    UseFormReturn,
+} from 'react-hook-form';
+
+import { FieldsErrors } from '../../../api/errors/FieldsError';
 import FormErrors from '../FormErrors';
-import FormContext, { FormContextProvider } from './FormContext';
+import { SubmitContextProvider } from './SubmitContext';
 
-type AsyncFormHandler = (ev: React.FormEvent) => Promise<void>;
-type AsyncChangeHandler = (ev: React.ChangeEvent) => Promise<void>;
+type AsyncFormHandler<T extends FieldValues> = (data: T) => Promise<void>;
 
-const InnerForm: React.FC<
-    React.PropsWithChildren<{
-        onSubmit: AsyncFormHandler;
-    }>
-> = ({ children, onSubmit }) => {
-    const { dispatch } = useContext(FormContext);
-
-    function submitHandler(event: React.FormEvent): void {
-        event.preventDefault();
-        onSubmit(event).catch((err) => {
-            if (!(err instanceof Error)) {
-                throw err;
+const InnerForm: (args: {
+    children: React.ReactNode;
+    submitOnBlur: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onSubmit: AsyncFormHandler<any>;
+}) => ReturnType<FC> = <T extends FieldValues>({
+    children,
+    submitOnBlur,
+    onSubmit,
+}: {
+    children: React.ReactNode;
+    submitOnBlur: boolean;
+    onSubmit: AsyncFormHandler<T>;
+}) => {
+    const [formError, setFormError] = useState<Error>();
+    const { handleSubmit, setError } = useFormContext<T>();
+    async function handleSubmitError(data: T): Promise<void> {
+        try {
+            await onSubmit(data);
+        } catch (err: unknown) {
+            if (err instanceof FieldsErrors) {
+                for (const fieldError of err.fields()) {
+                    setError(fieldError.field as Path<T>, {
+                        message: fieldError.message,
+                        type: 'serverError',
+                    });
+                }
+            } else if (err instanceof Error) {
+                setFormError(err);
             }
-            dispatch(setError(err));
-        });
+        }
     }
 
+    const submitHandler = handleSubmit(handleSubmitError as any);
     return (
-        <form onSubmit={submitHandler}>
-            {children}
-            <FormErrors />
-        </form>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        <SubmitContextProvider
+            submitOnBlur={submitOnBlur}
+            onSubmit={submitHandler}
+        >
+            <form onSubmit={submitHandler}>
+                {children}
+                <FormErrors formError={formError} />
+            </form>
+        </SubmitContextProvider>
     );
 };
 
-const Form: React.FC<
-    React.PropsWithChildren<{
-        onSubmit: AsyncFormHandler;
-        onChange?: AsyncChangeHandler;
-    }>
-> = ({ children, onSubmit, onChange }) => {
+const Form: <T extends FieldValues>(args: {
+    children: React.ReactNode;
+    submitOnBlur?: boolean;
+    onSubmit: AsyncFormHandler<T>;
+    form: UseFormReturn<T>;
+}) => ReturnType<FC> = ({ children, submitOnBlur, onSubmit, form }) => {
     return (
-        <FormContextProvider onChange={onChange}>
-            <InnerForm onSubmit={onSubmit}>{children}</InnerForm>
-        </FormContextProvider>
+        <FormProvider {...form}>
+            <InnerForm submitOnBlur={submitOnBlur ?? false} onSubmit={onSubmit}>
+                {children}
+            </InnerForm>
+        </FormProvider>
     );
 };
 

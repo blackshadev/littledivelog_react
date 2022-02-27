@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { getFormErrors } from '../../../store/form/selectors';
 import ErrorList from '../ErrorList';
-import FormContext from '../Form/FormContext';
 
-const FormErrors: React.FC = () => {
-    const { state } = useContext(FormContext);
-    const formError = getFormErrors(state);
-
+const FormErrors: React.FC<{ formError: Error | undefined }> = ({
+    formError,
+}) => {
     const errors = formError ? [formError.message] : [];
 
     return <ErrorList errors={errors} />;

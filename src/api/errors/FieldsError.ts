@@ -7,6 +7,13 @@ export class FieldsErrors extends Error {
         );
     }
 
+    public fields(): { field: string; message: string }[] {
+        return Object.keys(this.errors).map((field) => ({
+            field,
+            message: this.errors[field].join(', '),
+        }));
+    }
+
     public forField(name: string): string[] {
         return this.errors[name] ?? [];
     }

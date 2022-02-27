@@ -1,17 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { getFieldsErrors } from '../../../store/form/selectors';
+import { FieldError, get, useFormContext } from 'react-hook-form';
+
 import ErrorList from '../ErrorList';
-import FormContext from '../Form/FormContext';
 
 const FormFieldErrors: React.FC<React.PropsWithChildren<{ name: string }>> = ({
     name,
 }) => {
-    const { state } = useContext(FormContext);
-    const fieldsErrors = getFieldsErrors(state);
+    const { formState } = useFormContext();
+    const fieldError = get(formState.errors, name) as FieldError | undefined;
 
-    const errors = fieldsErrors?.forField(name) ?? [];
-
+    const errors = fieldError?.message ? [fieldError.message] : [];
     return <ErrorList errors={errors} />;
 };
 

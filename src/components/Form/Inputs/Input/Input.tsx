@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
 import colors from '../../../../styling/colors';
 import misc from '../../../../styling/misc';
 import spacing from '../../../../styling/spacing';
-import FormElementContext from '../../FormElement/FormElementContext';
 
 export const StyledInput = styled.input`
     font-size: 0.9rem;
@@ -24,15 +23,7 @@ export const StyledInput = styled.input`
 `;
 
 const Input: React.FC<React.ComponentProps<typeof StyledInput>> = (props) => {
-    const { focus } = useContext(FormElementContext);
-
-    return (
-        <StyledInput
-            onFocus={(): void => focus(true)}
-            onBlur={(): void => focus(false)}
-            {...props}
-        ></StyledInput>
-    );
+    return <StyledInput {...props}></StyledInput>;
 };
 
 export default Input;

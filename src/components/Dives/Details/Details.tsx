@@ -1,40 +1,53 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
+
+import { useForm } from 'react-hook-form';
 
 import { updateDive } from '../../../api/dives';
 import { DiveDetail } from '../../../api/types/dives/DiveDetail';
 import useAccessToken from '../../../context/auth/useAccessToken';
+import Button from '../../Form/Button';
 import Form from '../../Form/Form';
 import FormInput from '../../Form/FormElement';
+import DepthInput from '../../Form/Inputs/Depth';
 import DurationInput from '../../Form/Inputs/DurationInput';
 
-const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
-    const [diveTime, setDivetime] = useState<number>(dive.divetime);
-    const { accessToken } = useAccessToken();
+type FormType = { divetime: number };
 
-    async function handleSubmit(): Promise<void> {
-        console.log('submit', diveTime);
-        await updateDive(accessToken, dive.dive_id, {
-            ...dive,
-        });
+const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
+    console.log(dive);
+    const form = useForm<FormType>({
+        defaultValues: dive,
+    });
+    // const { accessToken } = useAccessToken();
+
+    async function handleSubmit2(data: FormType): Promise<void> {
+        console.log('submit', data);
+        // await updateDive(accessToken, dive.dive_id, {
+        //     ...dive,
+        // });
     }
 
-    const handleChange = useCallback(async (): Promise<void> => {
-        console.log('changexxx', diveTime);
-    }, [diveTime]);
-
     return (
-        <Form onSubmit={handleSubmit} onChange={handleChange}>
+        <Form submitOnBlur={true} onSubmit={handleSubmit2} form={form}>
+            <FormInput
+                name="date"
+                placeholder="2021-02-26 11:38:00"
+                label="Date"
+            />
             <FormInput
                 name="divetime"
                 placeholder="01:34:12"
                 label="Duration"
-                value={diveTime}
-                onBlur={(_, dt): void => {
-                    console.log(dt);
-                    setDivetime(dt as number);
-                }}
                 Input={DurationInput}
             />
+            <FormInput
+                name="max_depth"
+                placeholder="8.4"
+                label="Max depth"
+                Input={DepthInput}
+            />
+
+            <Button>Submit</Button>
         </Form>
     );
 };
