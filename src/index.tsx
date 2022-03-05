@@ -1,22 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Providers from './components/Providers';
-import GlobalStyle from './global.style';
+import Providers from './Components/Providers';
+import Router from './Routing/Router';
+import GlobalStyles from './Styling/GlobalStyles';
 import Header from './Header';
 import reportWebVitals from './reportWebVitals';
-import ResetStyle from './reset.style';
-import Router from './Router';
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Providers>
-            <Header />
-            <ResetStyle />
-            <GlobalStyle />
-            <Router />
-        </Providers>
-    </React.StrictMode>,
+    <Providers>
+        <Header />
+        <GlobalStyles />
+        <Router />
+    </Providers>,
     document.getElementById('root'),
 );
 
