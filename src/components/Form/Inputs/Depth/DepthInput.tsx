@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import formatDepth, {
     parseFormattedDepth,
 } from '../../../../formatters/formatDepth';
-import Input from '../Input';
+import TextField from '../TextField';
 
 type CustomInputProps<T> = {
     value: T;
@@ -12,7 +12,7 @@ type CustomInputProps<T> = {
 };
 
 const DepthInput: React.FC<
-    React.ComponentProps<typeof Input> & CustomInputProps<number>
+    React.ComponentProps<typeof TextField> & CustomInputProps<number>
 > = ({ value, onBlur, onChange, ...props }) => {
     const [depth, setDepth] = useState<number>(value);
     const [formattedDepth, setFormattedDepth] = useState<string>('');
@@ -22,7 +22,7 @@ const DepthInput: React.FC<
     }, [depth]);
 
     return (
-        <Input
+        <TextField
             value={formattedDepth}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 setFormattedDepth(event.target.value);
@@ -34,7 +34,7 @@ const DepthInput: React.FC<
                 onBlur?.(event, depth);
             }}
             {...props}
-        ></Input>
+        ></TextField>
     );
 };
 

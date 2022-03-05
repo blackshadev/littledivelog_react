@@ -1,12 +1,16 @@
 import React, { useContext } from 'react';
 
-import { Controller } from 'react-hook-form';
+import {
+    FormControl,
+    FormHelperText,
+    InputLabel,
+    TextField,
+} from '@mui/material';
+import { Controller, FieldError, get, useFormState } from 'react-hook-form';
 
-import SubmitContext from '../Form/SubmitContext';
-import NormalInput from '../Inputs/Input/Input';
-import FormElement from './FormElement';
+import SubmitContext from '../../Form/SubmitContext';
 
-type FormInputProps = React.ComponentProps<typeof NormalInput> & {
+type FormInputProps = React.ComponentProps<typeof TextField> & {
     name: string;
     label: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,23 +18,26 @@ type FormInputProps = React.ComponentProps<typeof NormalInput> & {
 };
 
 const FormInput: React.FC<FormInputProps> = ({
-    label,
     Input,
     name,
+    label,
     ...props
 }) => {
-    const ChildInput = Input ?? NormalInput;
+    const ChildInput = Input ?? TextField;
     const submitContext = useContext(SubmitContext);
+    const { errors } = useFormState();
+    const error = get(errors, name)?.message as FieldError | undefined;
 
     return (
-        <FormElement name={name} label={label}>
+        <FormControl error={!!error}>
+            <InputLabel>{label}</InputLabel>
             <Controller
                 name={name}
                 render={({ field }): React.ReactElement => (
                     <ChildInput
                         onBlur={(
-                            event: React.FocusEvent<HTMLFormElement>,
-                            value: unknown,
+                            event: React.FocusEvent<HTMLInputElement>,
+                            value?: unknown,
                         ): void => {
                             value = value ?? event.target.value;
                             field.onChange(value);
@@ -41,17 +48,19 @@ const FormInput: React.FC<FormInputProps> = ({
                             }
                         }}
                         onChange={(
-                            event: React.ChangeEvent<HTMLFormElement>,
-                            value: unknown,
+                            event: React.ChangeEvent<HTMLInputElement>,
+                            value?: unknown,
                         ): void => {
                             field.onChange(value ?? event.target.value);
                         }}
                         value={field.value}
+                        label={label}
                         {...props}
                     />
                 )}
             />
-        </FormElement>
+            <FormHelperText>{error ?? ' '}</FormHelperText>
+        </FormControl>
     );
 };
 FormInput.displayName = 'FormInput';

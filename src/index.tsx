@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import AuthProvider from './context/auth/auth';
+import Providers from './components/Providers';
 import GlobalStyle from './global.style';
+import Header from './Header';
 import reportWebVitals from './reportWebVitals';
 import ResetStyle from './reset.style';
 import Router from './Router';
 
 ReactDOM.render(
     <React.StrictMode>
-        <AuthProvider>
+        <Providers>
+            <Header />
             <ResetStyle />
             <GlobalStyle />
             <Router />
-        </AuthProvider>
+        </Providers>
     </React.StrictMode>,
     document.getElementById('root'),
 );

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import formatDivetime, {
     parseDivetime,
 } from '../../../../formatters/formatDiveTime';
-import Input from '../Input';
+import TextField from '../TextField';
 
 type CustomInputProps<T> = {
     value: T;
@@ -12,7 +12,7 @@ type CustomInputProps<T> = {
 };
 
 const DurationInput: React.FC<
-    React.ComponentProps<typeof Input> & CustomInputProps<number>
+    React.ComponentProps<typeof TextField> & CustomInputProps<number>
 > = ({ value, onBlur, onChange, ...props }) => {
     const [diveTime, setDivetime] = useState<number>(value);
     const [formattedDiveTime, setFormattedDivetime] = useState<string>('');
@@ -22,7 +22,7 @@ const DurationInput: React.FC<
     }, [diveTime]);
 
     return (
-        <Input
+        <TextField
             value={formattedDiveTime}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
                 setFormattedDivetime(event.target.value);
@@ -34,7 +34,7 @@ const DurationInput: React.FC<
                 onBlur?.(event, dt);
             }}
             {...props}
-        ></Input>
+        ></TextField>
     );
 };
 
