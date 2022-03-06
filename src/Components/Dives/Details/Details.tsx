@@ -9,6 +9,7 @@ import Button from '../../Form/Button';
 import Form from '../../Form/Form';
 import DateTimePicker from '../../Form/FormElements/DateTimePicker';
 import FormInput from '../../Form/FormElements/FormInput';
+import PlaceInput from '../../Form/FormElements/PlaceInput';
 import HorizontalLayout from '../../Form/FormLayout/HorizontalLayout';
 import DepthInput from '../../Form/Inputs/Depth';
 import DurationInput from '../../Form/Inputs/DurationInput';
@@ -49,6 +50,12 @@ const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
                     placeholder="8.4"
                     label="Max depth"
                     Input={DepthInput}
+                />
+
+                <PlaceInput
+                    name="place"
+                    label="Divespot"
+                    placeholder="Zeeland brug"
                 />
 
                 <Button variant="contained" type="submit">
