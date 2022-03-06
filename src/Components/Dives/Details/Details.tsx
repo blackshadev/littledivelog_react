@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import { updateDive } from '../../../api/dives';
 import { DiveDetail } from '../../../api/types/dives/DiveDetail';
+import { Place } from '../../../api/types/places/country';
 import useAccessToken from '../../../Context/Auth/useAccessToken';
 import Button from '../../Form/Button';
 import Form from '../../Form/Form';
@@ -15,7 +16,12 @@ import DepthInput from '../../Form/Inputs/Depth';
 import DurationInput from '../../Form/Inputs/DurationInput';
 import TextField from '../../Form/Inputs/TextField';
 
-type FormType = { divetime: number };
+type FormType = {
+    divetime: number;
+    max_depth: number;
+    date: Date;
+    place: null | Place;
+};
 
 const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
     console.log(dive);
@@ -26,6 +32,7 @@ const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
 
     async function handleSubmit2(data: FormType): Promise<void> {
         console.log('submit', data);
+        form.setError('place', { message: 'error on place' });
         // await updateDive(accessToken, dive.dive_id, {
         //     ...dive,
         // });
