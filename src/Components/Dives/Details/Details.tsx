@@ -8,12 +8,12 @@ import { Place } from '../../../api/types/places/country';
 import useAccessToken from '../../../Context/Auth/useAccessToken';
 import Button from '../../Form/Button';
 import Form from '../../Form/Form';
-import DateTimePicker from '../../Form/FormElements/DateTimePicker';
 import FormInput from '../../Form/FormElements/FormInput';
-import PlaceInput from '../../Form/FormElements/PlaceInput';
-import HorizontalLayout from '../../Form/FormLayout/HorizontalLayout';
+import VerticalLayout from '../../Form/FormLayout/VerticalLayout';
+import DateTimePickerInput from '../../Form/Inputs/DateTimePicker';
 import DepthInput from '../../Form/Inputs/Depth';
 import DurationInput from '../../Form/Inputs/DurationInput';
+import PlaceSearch from '../../Form/Inputs/PlaceSearch';
 import TextField from '../../Form/Inputs/TextField';
 
 type FormType = {
@@ -40,11 +40,19 @@ const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
 
     return (
         <Form submitOnBlur={true} onSubmit={handleSubmit2} form={form}>
-            <HorizontalLayout>
-                <DateTimePicker
+            <VerticalLayout>
+                <FormInput
                     name="date"
                     placeholder="2021-02-26 11:38:00"
                     label="Date"
+                    Input={DateTimePickerInput}
+                />
+
+                <FormInput
+                    name="divetime"
+                    placeholder="01:34:12"
+                    label="Duration"
+                    Input={DurationInput}
                 />
                 <FormInput
                     name="divetime"
@@ -59,16 +67,17 @@ const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
                     Input={DepthInput}
                 />
 
-                <PlaceInput
+                <FormInput
                     name="place"
                     label="Divespot"
-                    placeholder="Zeeland brug"
+                    placeholder="Zeeland brug, NL"
+                    Input={PlaceSearch}
                 />
 
                 <Button variant="contained" type="submit">
                     Submit
                 </Button>
-            </HorizontalLayout>
+            </VerticalLayout>
         </Form>
     );
 };

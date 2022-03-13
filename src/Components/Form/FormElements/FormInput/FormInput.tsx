@@ -25,42 +25,34 @@ const FormInput: React.FC<FormInputProps> = ({
 }) => {
     const ChildInput = Input ?? TextField;
     const submitContext = useContext(SubmitContext);
-    const { errors } = useFormState();
-    const error = get(errors, name)?.message as FieldError | undefined;
 
     return (
-        <FormControl error={!!error}>
-            <InputLabel>{label}</InputLabel>
-            <Controller
-                name={name}
-                render={({ field }): React.ReactElement => (
-                    <ChildInput
-                        onBlur={(
-                            event: React.FocusEvent<HTMLInputElement>,
-                            value?: unknown,
-                        ): void => {
-                            value = value ?? event.target.value;
-                            field.onChange(value);
-                            field.onBlur();
+        <Controller
+            name={name}
+            render={({ field }): React.ReactElement => (
+                <ChildInput
+                    onBlur={(
+                        event: React.FocusEvent<HTMLInputElement>,
+                        value?: unknown,
+                    ): void => {
+                        value = value ?? event.target.value;
+                        field.onChange(value);
+                        field.onBlur();
 
-                            if (value !== field.value) {
-                                submitContext.blur();
-                            }
-                        }}
-                        onChange={(
-                            event: React.ChangeEvent<HTMLInputElement>,
-                            value?: unknown,
-                        ): void => {
-                            field.onChange(value ?? event.target.value);
-                        }}
-                        value={field.value}
-                        label={label}
-                        {...props}
-                    />
-                )}
-            />
-            <FormHelperText>{error ?? ' '}</FormHelperText>
-        </FormControl>
+                        if (value !== field.value) {
+                            submitContext.blur();
+                        }
+                    }}
+                    onChange={(value?: unknown): void => {
+                        field.onChange(value);
+                    }}
+                    value={field.value}
+                    label={label}
+                    name={name}
+                    {...props}
+                />
+            )}
+        />
     );
 };
 FormInput.displayName = 'FormInput';

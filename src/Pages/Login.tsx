@@ -7,7 +7,7 @@ import * as api from '../api/auth';
 import Button from '../Components/Form/Button';
 import Form from '../Components/Form/Form';
 import FormInput from '../Components/Form/FormElements/FormInput';
-import HorizontalLayout from '../Components/Form/FormLayout/HorizontalLayout';
+import VerticalLayout from '../Components/Form/FormLayout/VerticalLayout';
 import TextField from '../Components/Form/Inputs/TextField';
 import { AuthContext } from '../Context/Auth/auth';
 import * as authActions from '../Store/Auth/actions';
@@ -36,7 +36,7 @@ const Login: React.FC = () => {
     return (
         <Container>
             <Form onSubmit={doSubmit} form={form}>
-                <HorizontalLayout>
+                <VerticalLayout>
                     <FormInput
                         name="email"
                         label="Email"
@@ -53,7 +53,7 @@ const Login: React.FC = () => {
                     <Button variant="contained" type="submit">
                         Login
                     </Button>
-                </HorizontalLayout>
+                </VerticalLayout>
             </Form>
         </Container>
     );

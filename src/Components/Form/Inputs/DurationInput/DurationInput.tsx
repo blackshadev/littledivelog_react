@@ -8,12 +8,13 @@ import TextField from '../TextField';
 type CustomInputProps<T> = {
     value: T;
     onBlur?: (event: React.FocusEvent<HTMLInputElement>, value: T) => void;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: T) => void;
+    onValueChange?: (value: T) => void;
 };
 
 const DurationInput: React.FC<
     React.ComponentProps<typeof TextField> & CustomInputProps<number>
-> = ({ value, onBlur, onChange, ...props }) => {
+    // eslint-disable-next-line react/prop-types
+> = ({ value, onBlur, onValueChange, ...props }) => {
     const [diveTime, setDivetime] = useState<number>(value);
     const [formattedDiveTime, setFormattedDivetime] = useState<string>('');
 
@@ -24,9 +25,9 @@ const DurationInput: React.FC<
     return (
         <TextField
             value={formattedDiveTime}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
-                setFormattedDivetime(event.target.value);
-                onChange?.(event, diveTime);
+            onValueChange={(value: string): void => {
+                setFormattedDivetime(value);
+                onValueChange?.(diveTime);
             }}
             onBlur={(event: React.FocusEvent<HTMLInputElement>): void => {
                 const dt = parseDivetime(formattedDiveTime);

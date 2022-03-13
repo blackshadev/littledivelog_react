@@ -4,12 +4,13 @@ import { Box } from '@mui/system';
 
 import { ReactPropsWithChildren } from '../../../../Helpers/ReactPropsWithChildern';
 
-const HorizontalLayout: React.FC<ReactPropsWithChildren> = ({ children }) => {
+const VerticalLayout: React.FC<ReactPropsWithChildren> = ({ children }) => {
     return (
         <Box
             sx={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: 'column',
+                marginTop: 1,
             }}
         >
             {children}
@@ -17,4 +18,4 @@ const HorizontalLayout: React.FC<ReactPropsWithChildren> = ({ children }) => {
     );
 };
 
-export default HorizontalLayout;
+export default VerticalLayout;
