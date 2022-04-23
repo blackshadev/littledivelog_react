@@ -4,7 +4,7 @@ export type Country = {
 };
 
 export type Place = {
-    place_id: number;
+    place_id?: number;
     name: string;
     country_code: string;
 };

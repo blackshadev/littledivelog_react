@@ -7,9 +7,12 @@ import { Country } from '../../../../api/types/places/country';
 import useApi from '../../../../Context/Auth/callApi';
 
 type CountryArguments = {
-    value: string;
+    value: string | null;
     label: string;
-    onChange?(event: React.SyntheticEvent<Element, Event>, value: string): void;
+    onChange?(
+        event: React.SyntheticEvent<Element, Event>,
+        value: string | null,
+    ): void;
 };
 
 const CountrySelectInput: React.FC<CountryArguments> = ({
@@ -42,8 +45,8 @@ const CountrySelectInput: React.FC<CountryArguments> = ({
             renderInput={(params): React.ReactElement => {
                 return <MUITextField {...params} label={label} />;
             }}
-            onChange={(_, value): void => {
-                console.log(value);
+            onChange={(event, value): void => {
+                onChange?.(event, value?.iso2 ?? null);
             }}
         />
     );

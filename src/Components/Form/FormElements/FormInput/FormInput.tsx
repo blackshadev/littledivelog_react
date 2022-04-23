@@ -1,14 +1,9 @@
 import React, { useContext } from 'react';
 
-import {
-    FormControl,
-    FormHelperText,
-    InputLabel,
-    TextField,
-} from '@mui/material';
-import { Controller, FieldError, get, useFormState } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
 import SubmitContext from '../../Form/SubmitContext';
+import TextField from '../../Inputs/TextField';
 
 type FormInputProps = React.ComponentProps<typeof TextField> & {
     name: string;
@@ -17,12 +12,7 @@ type FormInputProps = React.ComponentProps<typeof TextField> & {
     Input?: React.FC<any>;
 };
 
-const FormInput: React.FC<FormInputProps> = ({
-    Input,
-    name,
-    label,
-    ...props
-}) => {
+const FormInput: React.FC<FormInputProps> = ({ Input, name, label, ...props }) => {
     const ChildInput = Input ?? TextField;
     const submitContext = useContext(SubmitContext);
 
@@ -31,10 +21,7 @@ const FormInput: React.FC<FormInputProps> = ({
             name={name}
             render={({ field }): React.ReactElement => (
                 <ChildInput
-                    onBlur={(
-                        event: React.FocusEvent<HTMLInputElement>,
-                        value?: unknown,
-                    ): void => {
+                    onBlur={(event: React.FocusEvent<HTMLInputElement>, value?: unknown): void => {
                         value = value ?? event.target.value;
                         field.onChange(value);
                         field.onBlur();
@@ -43,7 +30,7 @@ const FormInput: React.FC<FormInputProps> = ({
                             submitContext.blur();
                         }
                     }}
-                    onChange={(value?: unknown): void => {
+                    onValueChange={(value?: unknown): void => {
                         field.onChange(value);
                     }}
                     value={field.value}
