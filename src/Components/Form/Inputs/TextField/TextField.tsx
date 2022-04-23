@@ -3,17 +3,22 @@ import React from 'react';
 import { TextField as MUITextField } from '@mui/material';
 import { FieldError, get, useFormState } from 'react-hook-form';
 
+import FormFieldError from '../../FormFieldError';
+
 type CustomInputProps = {
     name: string;
     onValueChange?: (value: string) => void;
     onChange?: React.ChangeEventHandler;
 };
 
-const TextField: React.FC<
-    CustomInputProps & React.ComponentProps<typeof MUITextField>
-> = ({ name, onChange, onValueChange, ...props }) => {
+const TextField: React.FC<CustomInputProps & React.ComponentProps<typeof MUITextField>> = ({
+    name,
+    onChange,
+    onValueChange,
+    ...props
+}) => {
     const { errors } = useFormState();
-    const error = get(errors, name)?.message as FieldError | undefined;
+    const error = get(errors, name)?.message as string | undefined;
 
     return (
         <MUITextField
@@ -23,7 +28,7 @@ const TextField: React.FC<
                 onValueChange?.(event.target.value);
             }}
             error={!!error}
-            helperText={error ?? ' '}
+            helperText={<FormFieldError error={error} />}
         ></MUITextField>
     );
 };

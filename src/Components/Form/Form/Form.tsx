@@ -1,15 +1,10 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useState } from 'react';
 
-import {
-    FieldValues,
-    FormProvider,
-    Path,
-    useFormContext,
-    UseFormReturn,
-} from 'react-hook-form';
+import { FieldValues, FormProvider, Path, useFormContext, UseFormReturn } from 'react-hook-form';
 
 import { FieldsErrors } from '../../../api/errors/FieldsError';
 import FormErrors from '../FormErrors';
+import { StyledForm } from './components';
 import { SubmitContextProvider } from './SubmitContext';
 
 type AsyncFormHandler<T extends FieldValues> = (data: T) => Promise<void>;
@@ -50,14 +45,11 @@ const InnerForm: (args: {
     const submitHandler = handleSubmit(handleSubmitError as any);
     return (
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        <SubmitContextProvider
-            submitOnBlur={submitOnBlur}
-            onSubmit={submitHandler}
-        >
-            <form onSubmit={submitHandler}>
+        <SubmitContextProvider submitOnBlur={submitOnBlur} onSubmit={submitHandler}>
+            <StyledForm onSubmit={submitHandler}>
                 {children}
                 <FormErrors formError={formError} />
-            </form>
+            </StyledForm>
         </SubmitContextProvider>
     );
 };

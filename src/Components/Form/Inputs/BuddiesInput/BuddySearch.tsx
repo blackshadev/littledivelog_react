@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Autocomplete, Chip, CircularProgress, createFilterOptions, TextField as MUITextField } from '@mui/material';
-import { FieldError, get, useFormState } from 'react-hook-form';
+import { get, useFormState } from 'react-hook-form';
 
 import * as api from '../../../../api/buddies';
 import { DiveBuddy } from '../../../../api/types/dives/DiveBuddy';
@@ -9,6 +9,7 @@ import useAccessToken from '../../../../Context/Auth/useAccessToken';
 import fontColor from '../../../../Helpers/Colors/fontColor';
 import { randomColor } from '../../../../Helpers/Colors/randomColor';
 import useDebounce from '../../../../Helpers/useDebounce';
+import FormFieldError from '../../FormFieldError';
 
 type BuddyInputArgs = {
     name: string;
@@ -20,7 +21,7 @@ type BuddyInputArgs = {
 
 const BuddySearch: React.FC<BuddyInputArgs> = ({ name, placeholder, label, value, onValueChange }) => {
     const { errors } = useFormState();
-    const error = get(errors, name)?.message as FieldError | undefined;
+    const error = get(errors, name)?.message as string | undefined;
 
     const filter = createFilterOptions<DiveBuddy>();
     const [buddyInputValue, setBuddyInputValue] = React.useState('');
@@ -49,7 +50,11 @@ const BuddySearch: React.FC<BuddyInputArgs> = ({ name, placeholder, label, value
             multiple
             freeSolo
             isOptionEqualToValue={(option, value): boolean => option.buddy_id === value.buddy_id}
-            getOptionLabel={(option: DiveBuddy): string => {
+            getOptionLabel={(option: DiveBuddy | string): string => {
+                if (typeof option === 'string') {
+                    return option;
+                }
+
                 return option !== undefined ? `${option.text}` : '';
             }}
             value={value}
@@ -99,7 +104,7 @@ const BuddySearch: React.FC<BuddyInputArgs> = ({ name, placeholder, label, value
                         }}
                         label={label}
                         error={!!error}
-                        helperText={error ?? ' '}
+                        helperText={<FormFieldError error={error} />}
                     />
                 );
             }}

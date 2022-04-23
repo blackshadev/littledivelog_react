@@ -32,7 +32,7 @@ const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
 
     async function handleSubmit2(data: FormType): Promise<void> {
         console.log('submit', data);
-        form.setError('place', { message: 'error on place' });
+        form.setError('max_depth', { message: 'error on place' });
         // await updateDive(accessToken, dive.dive_id, {
         //     ...dive,
         // });

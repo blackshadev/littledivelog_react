@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 
-import { createFilterOptions } from '@mui/lab/node_modules/@mui/base';
+import { createFilterOptions } from '@mui/base';
 import { Autocomplete, CircularProgress, TextField as MUITextField } from '@mui/material';
-import { FieldError, get, useFormState } from 'react-hook-form';
+import { get, useFormState } from 'react-hook-form';
 
 import * as api from '../.../../../../../api/place';
 import { Place } from '../../../../api/types/places/country';
 import useAccessToken from '../../../../Context/Auth/useAccessToken';
 import useDebounce from '../../../../Helpers/useDebounce';
+import FormFieldError from '../../FormFieldError';
 import HorizontalLayout from '../../FormLayout/HorizontalLayout';
 import CountrySelectInput from './CountrySelectInput';
 
@@ -21,7 +22,7 @@ type PlaceAutoCompleteArgs = {
 
 const PlaceSearch: React.FC<PlaceAutoCompleteArgs> = ({ value, onValueChange, placeholder, label, name }) => {
     const { errors } = useFormState();
-    const error = get(errors, name)?.message as FieldError | undefined;
+    const error = get(errors, name)?.message as string | undefined;
 
     const filter = createFilterOptions<Place>();
     const [countryCode, setCountryCode] = React.useState<string | null>(value?.country_code ?? null);
@@ -101,7 +102,7 @@ const PlaceSearch: React.FC<PlaceAutoCompleteArgs> = ({ value, onValueChange, pl
                             }}
                             label={label}
                             error={!!error}
-                            helperText={error ?? ' '}
+                            helperText={<FormFieldError error={error} />}
                         />
                     );
                 }}
