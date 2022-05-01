@@ -1,4 +1,4 @@
-export default function fontColor(backgroundColor: string): string {
+export default function fontColor(backgroundColor: string): 'black' | 'white' {
     if (backgroundColor[0] === '#') {
         backgroundColor = backgroundColor.substring(1);
     }

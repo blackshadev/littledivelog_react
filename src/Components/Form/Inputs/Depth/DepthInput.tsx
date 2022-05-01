@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import formatDepth, {
-    parseFormattedDepth,
-} from '../../../../Helpers/Formatters/formatDepth';
+import formatDepth, { parseFormattedDepth } from '../../../../Helpers/Formatters/formatDepth';
 import TextField from '../TextField';
 
 type CustomInputProps<T> = {
@@ -11,10 +9,13 @@ type CustomInputProps<T> = {
     onBlur?: React.FocusEventHandler;
 };
 
-const DepthInput: React.FC<
-    React.ComponentProps<typeof TextField> & CustomInputProps<number>
-> = ({ value, onValueChange, onBlur, ...props }) => {
-    const [depth, setDepth] = useState<number>(value);
+const DepthInput: React.FC<React.ComponentProps<typeof TextField> & CustomInputProps<number | null>> = ({
+    value,
+    onValueChange,
+    onBlur,
+    ...props
+}) => {
+    const [depth, setDepth] = useState<number | null>(value);
     const [formattedDepth, setFormattedDepth] = useState<string>('');
 
     useEffect(() => {
