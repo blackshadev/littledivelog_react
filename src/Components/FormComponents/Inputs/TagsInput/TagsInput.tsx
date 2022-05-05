@@ -23,24 +23,24 @@ const BuddiesInput: React.FC<BuddyInputArgs> = ({ name, value, placeholder, labe
     const { accessToken } = useAccessToken();
 
     const search = useCallback(async (): Promise<(GenericTag & DiveTag)[]> => {
-        const buddies = await api.listTags(accessToken);
-        return buddies.map((b) => ({
-            buddy_id: b.tag_id,
+        const tags = await api.listTags(accessToken);
+        return tags.map((b) => ({
             color: b.color,
             id: b.tag_id,
+            tag_id: b.tag_id,
             text: b.text,
         }));
     }, [accessToken]);
 
     return (
-        <GenericTagInput<DiveBuddy>
+        <GenericTagInput<DiveTag>
             label={label}
             value={value}
             placeholder={placeholder}
             search={search}
             error={error}
             onValueChange={onValueChange}
-            isEqual={(a, b): boolean => a.buddy_id === b.buddy_id}
+            isEqual={(a, b): boolean => a.tag_id === b.tag_id}
         />
     );
 };
