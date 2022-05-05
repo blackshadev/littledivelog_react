@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { TextField as MUITextField } from '@mui/material';
-import { FieldError, get, useFormState } from 'react-hook-form';
+import { get, useFormState } from 'react-hook-form';
 
 import FormFieldError from '../../FormFieldError';
 

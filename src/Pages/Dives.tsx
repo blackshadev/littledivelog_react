@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { listDives } from '../api/dives';
-import DiveList from '../Components/Dives/List';
+import DiveListing from '../Components/Listing/DiveListing';
 import useApi from '../Context/Auth/callApi';
 
 const Dives: React.FC = () => {
@@ -11,7 +11,7 @@ const Dives: React.FC = () => {
         return <span>Loading...</span>;
     }
 
-    return <DiveList dives={dives.data ?? []} />;
+    return <DiveListing dives={dives.data ?? []} />;
 };
 
 export default Dives;

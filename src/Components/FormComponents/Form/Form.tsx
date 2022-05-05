@@ -42,6 +42,7 @@ const InnerForm: (args: {
         }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const submitHandler = handleSubmit(handleSubmitError as any);
     return (
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

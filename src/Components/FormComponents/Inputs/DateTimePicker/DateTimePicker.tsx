@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import MUIDateTimePicker from '@mui/lab/DateTimePicker';
 
@@ -12,14 +12,7 @@ type FormInputProps = React.ComponentProps<typeof TextField> & {
     onValueChange?: (value: unknown) => void;
 };
 
-const DateTimePicker: React.FC<FormInputProps> = ({
-    name,
-    label,
-    placeholder,
-    onValueChange,
-    value,
-    ...props
-}) => {
+const DateTimePicker: React.FC<FormInputProps> = ({ name, label, placeholder, onValueChange, value, ...props }) => {
     return (
         <MUIDateTimePicker
             mask="__-__-____ __:__"
@@ -30,12 +23,7 @@ const DateTimePicker: React.FC<FormInputProps> = ({
             value={value}
             autoFocus={true}
             renderInput={(params): React.ReactElement => (
-                <TextField
-                    placeholder={placeholder}
-                    name={name}
-                    {...props}
-                    {...params}
-                />
+                <TextField placeholder={placeholder} name={name} {...props} {...params} />
             )}
         />
     );

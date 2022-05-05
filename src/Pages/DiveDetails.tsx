@@ -3,7 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getDive } from '../api/dives';
-import Details from '../Components/Dives/Details';
+import DiveDetailsForm from '../Components/Forms/DiveDetails';
 import useApi from '../Context/Auth/callApi';
 
 const DiveDetails: React.FC = () => {
@@ -14,7 +14,7 @@ const DiveDetails: React.FC = () => {
         return <span>Loading...</span>;
     }
 
-    return <Details dive={dive.data} />;
+    return <DiveDetailsForm dive={dive.data} />;
 };
 
 export default DiveDetails;

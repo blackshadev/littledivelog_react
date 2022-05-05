@@ -7,15 +7,8 @@ import formatDatetime from '../../../Helpers/Formatters/formatDatetime';
 import formatDivetime from '../../../Helpers/Formatters/formatDiveTime';
 import formatPlace from '../../../Helpers/Formatters/formatPlace';
 import { Route, route } from '../../../Routing/Routes';
-import {
-    Cell,
-    HeaderCell,
-    HeaderRow,
-    Row,
-    Table,
-    TableBody,
-    TableHead,
-} from '../../Table';
+import { Cell, HeaderCell, HeaderRow, Row, Table, TableBody, TableHead } from '../../Table';
+import Tag from '../../Tag';
 
 const DiveList: React.FC<{ dives: DiveSummary[] }> = ({ dives }) => {
     const navigate = useNavigate();
@@ -36,13 +29,14 @@ const DiveList: React.FC<{ dives: DiveSummary[] }> = ({ dives }) => {
             </TableHead>
             <TableBody>
                 {dives.map((dive) => (
-                    <Row
-                        key={dive.dive_id}
-                        onClick={(): void => handleClick(dive.dive_id)}
-                    >
+                    <Row key={dive.dive_id} onClick={(): void => handleClick(dive.dive_id)}>
                         <Cell>{formatDatetime(dive.date)}</Cell>
                         <Cell>{formatDivetime(dive.divetime)}</Cell>
-                        <Cell>{dive.tags.map((t) => t.text).join(', ')}</Cell>
+                        <Cell>
+                            {dive.tags.map((t) => (
+                                <Tag key={t.tag_id} label={t.text} color={t.color}></Tag>
+                            ))}
+                        </Cell>
                         <Cell>{formatPlace(dive.place)}</Cell>
                     </Row>
                 ))}

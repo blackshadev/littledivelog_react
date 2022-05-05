@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { Autocomplete, CircularProgress, createFilterOptions, TextField as MUITextField } from '@mui/material';
 
-import fontColor from '../../../../Helpers/Colors/fontColor';
 import { randomColor } from '../../../../Helpers/Colors/randomColor';
 import useDebounce from '../../../../Helpers/useDebounce';
+import { ChipWithTextColor } from '../../../Tag/components';
 import FormFieldError from '../../FormFieldError';
-import { ChipWithTextColor } from './compontnts';
 
 type Props<T> = {
     placeholder: string;
@@ -88,16 +87,12 @@ const GenericTagInput = <T extends GenericTag>({
             }}
             renderTags={(value, getTagProps): React.ReactElement[] =>
                 value.map((option: T, index: number) => {
-                    const color = fontColor(option.color);
-                    const tagStyling = { backgroundColor: option.color };
                     return (
                         <ChipWithTextColor
                             label={option.text}
-                            textColor={color}
+                            backgroundColor={option.color}
                             {...getTagProps({ index })}
                             key={index}
-                            className={`text-${color}`}
-                            sx={tagStyling}
                         />
                     );
                 })

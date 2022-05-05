@@ -4,11 +4,11 @@ import { Container } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
 import * as api from '../api/auth';
-import Button from '../Components/Form/Button';
-import Form from '../Components/Form/Form';
-import FormInput from '../Components/Form/FormElements/FormInput';
-import VerticalLayout from '../Components/Form/FormLayout/VerticalLayout';
-import TextField from '../Components/Form/Inputs/TextField';
+import Button from '../Components/FormComponents/Button';
+import Form from '../Components/FormComponents/Form';
+import FormInput from '../Components/FormComponents/FormElements/FormInput';
+import VerticalLayout from '../Components/FormComponents/FormLayout/VerticalLayout';
+import TextField from '../Components/FormComponents/Inputs/TextField';
 import { AuthContext } from '../Context/Auth/auth';
 import * as authActions from '../Store/Auth/actions';
 
@@ -37,12 +37,7 @@ const Login: React.FC = () => {
         <Container>
             <Form onSubmit={doSubmit} form={form}>
                 <VerticalLayout>
-                    <FormInput
-                        name="email"
-                        label="Email"
-                        placeholder="john@doe.com"
-                        Input={TextField}
-                    ></FormInput>
+                    <FormInput name="email" label="Email" placeholder="john@doe.com" Input={TextField}></FormInput>
                     <FormInput
                         name="password"
                         label="Password"

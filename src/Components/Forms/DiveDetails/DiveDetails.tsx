@@ -2,19 +2,18 @@ import React from 'react';
 
 import { useForm } from 'react-hook-form';
 
-import { updateDive } from '../../../api/dives';
 import { DiveDetail } from '../../../api/types/dives/DiveDetail';
 import { Place } from '../../../api/types/places/country';
-import useAccessToken from '../../../Context/Auth/useAccessToken';
-import Button from '../../Form/Button';
-import Form from '../../Form/Form';
-import FormInput from '../../Form/FormElements/FormInput';
-import VerticalLayout from '../../Form/FormLayout/VerticalLayout';
-import BuddySearch from '../../Form/Inputs/BuddiesInput';
-import DateTimePickerInput from '../../Form/Inputs/DateTimePicker';
-import DepthInput from '../../Form/Inputs/Depth';
-import DurationInput from '../../Form/Inputs/DurationInput';
-import PlaceSearch from '../../Form/Inputs/PlaceSearch';
+import Button from '../../FormComponents/Button';
+import Form from '../../FormComponents/Form';
+import FormInput from '../../FormComponents/FormElements/FormInput';
+import VerticalLayout from '../../FormComponents/FormLayout/VerticalLayout';
+import BuddySearch from '../../FormComponents/Inputs/BuddiesInput';
+import DateTimePickerInput from '../../FormComponents/Inputs/DateTimePicker';
+import DepthInput from '../../FormComponents/Inputs/Depth';
+import DurationInput from '../../FormComponents/Inputs/DurationInput';
+import PlaceSearch from '../../FormComponents/Inputs/PlaceSearch';
+import TagsInput from '../../FormComponents/Inputs/TagsInput';
 
 type FormType = {
     divetime: number;
@@ -46,6 +45,7 @@ const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
                 <FormInput name="max_depth" placeholder="8.4" label="Max depth" Input={DepthInput} />
                 <FormInput name="place" label="Divespot" placeholder="Zeeland brug" Input={PlaceSearch} />
                 <FormInput name="buddies" label="Buddies" placeholder="John Doe" Input={BuddySearch} />
+                <FormInput name="tags" label="Tags" placeholder="Deco" Input={TagsInput} />
 
                 <Button variant="contained" type="submit">
                     Submit

@@ -14,9 +14,7 @@ export default function useApi<T extends unknown[], R>(
     fn: (token: string, ...args: T) => Promise<R>,
     ...args: T
 ): ApiState<R> {
-    const [apiData, setApiData] = useReducer<
-        Reducer<ApiState<R>, Partial<ApiState<R>>>
-    >(
+    const [apiData, setApiData] = useReducer<Reducer<ApiState<R>, Partial<ApiState<R>>>>(
         (state, newState) => ({
             ...state,
             ...newState,

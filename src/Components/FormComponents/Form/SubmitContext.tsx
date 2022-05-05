@@ -1,7 +1,5 @@
 import React, { createContext, useCallback } from 'react';
 
-import { useFormState } from 'react-hook-form';
-
 import { ReactPropsWithChildren } from '../../../Helpers/ReactPropsWithChildern';
 
 export const SubmitContext = createContext({
@@ -29,11 +27,7 @@ export const SubmitContextProvider: React.FC<
         }
     }, [submit, submitOnBlur]);
 
-    return (
-        <SubmitContext.Provider value={{ blur, submit }}>
-            {children}
-        </SubmitContext.Provider>
-    );
+    return <SubmitContext.Provider value={{ blur, submit }}>{children}</SubmitContext.Provider>;
 };
 
 export default SubmitContext;
