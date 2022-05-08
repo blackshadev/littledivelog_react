@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MUIDateTimePicker from '@mui/lab/DateTimePicker';
+import { DateTimePicker as MUIDateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 import TextField from '../TextField';
 
