@@ -29,7 +29,6 @@ export const Container = styled.fieldset`
 
     .${inputBaseClasses.root} {
         border-radius: 0;
-        margin-bottom: 1rem;
     }
 
     .--first .${inputBaseClasses.root} {

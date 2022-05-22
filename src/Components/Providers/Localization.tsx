@@ -4,7 +4,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import nlLocale from 'date-fns/locale/nl';
 
-import { ReactPropsWithChildren } from '../../Helpers/ReactPropsWithChildern';
+import { ReactPropsWithChildren } from '../../Helpers/ReactPropsWithChildren';
 
 const Localization: React.FC<ReactPropsWithChildren> = ({ children }) => (
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={nlLocale}>

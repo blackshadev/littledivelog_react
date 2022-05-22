@@ -26,7 +26,6 @@ type FormType = {
 };
 
 const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
-    console.log(dive);
     const form = useForm<FormType>({
         defaultValues: dive,
     });

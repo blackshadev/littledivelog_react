@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createTheme, ThemeProvider } from '@mui/material';
 
-import { ReactPropsWithChildren } from '../../Helpers/ReactPropsWithChildern';
+import { ReactPropsWithChildren } from '../../Helpers/ReactPropsWithChildren';
 
 const MUIOverride = createTheme({
     components: {

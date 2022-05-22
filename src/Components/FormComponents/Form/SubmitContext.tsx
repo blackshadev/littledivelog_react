@@ -1,6 +1,6 @@
 import React, { createContext, useCallback } from 'react';
 
-import { ReactPropsWithChildren } from '../../../Helpers/ReactPropsWithChildern';
+import { ReactPropsWithChildren } from '../../../Helpers/ReactPropsWithChildren';
 
 export const SubmitContext = createContext({
     blur(): void {

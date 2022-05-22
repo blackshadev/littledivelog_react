@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ReactPropsWithChildren } from '../ReactPropsWithChildern';
+import { ReactPropsWithChildren } from '../ReactPropsWithChildren';
 
 const combineComponents = (...components: React.FC<ReactPropsWithChildren>[]): React.FC<ReactPropsWithChildren> => {
     const x: React.FC<ReactPropsWithChildren> = ({ children }) =>

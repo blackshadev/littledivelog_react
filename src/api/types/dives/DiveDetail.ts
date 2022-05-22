@@ -12,5 +12,4 @@ export type DiveDetail = {
     buddies: BuddySummary[];
     tanks: DiveTank[];
     place: { place_id: number; name: string; country_code: string } | null;
-    samples: unknown[];
 };

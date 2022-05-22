@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { getDive } from '../api/dives';
+import { getDive, getSamples } from '../api/dives';
+import DiveProfile from '../Components/DiveProfile';
 import DiveDetailsForm from '../Components/Forms/DiveDetails';
+import { TabPanel } from '../Components/Tabs';
+import Tabs from '../Components/Tabs/Tabs';
 import useApi from '../Context/Auth/callApi';
 
 const DiveDetails: React.FC = () => {
     const { diveId } = useParams<{ diveId: string }>();
     const dive = useApi(getDive, Number(diveId));
+    const [selectedTab, setSelectedTab] = useState('dive');
 
     if (dive.loading || !dive.data) {
         return <span>Loading...</span>;
     }
 
-    return <DiveDetailsForm dive={dive.data} />;
+    return (
+        <>
+            <Tabs
+                value={selectedTab}
+                onChange={(_, tab): void => setSelectedTab(tab)}
+                tabs={[
+                    { id: 'dive', label: 'Dive' },
+                    { id: 'profile', label: 'Profile' },
+                ]}
+            />
+            <TabPanel id="dive" selectedTab={selectedTab}>
+                <DiveDetailsForm dive={dive.data} />
+            </TabPanel>
+
+            <TabPanel id="profile" selectedTab={selectedTab}>
+                <DiveProfile diveId={dive.data.dive_id} />
+            </TabPanel>
+        </>
+    );
 };
 
 export default DiveDetails;
