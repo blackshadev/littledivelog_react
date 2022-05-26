@@ -9,9 +9,14 @@ type Props = {
 
 const TabPanel: React.FC<ReactPropsWithChildren<Props>> = ({ id, children, selectedTab }) => {
     const isSelected = selectedTab === id;
+
+    if (!isSelected) {
+        return <></>;
+    }
+
     return (
         <div id={`${id}-tabpanel`} hidden={!isSelected} aria-labelledby={`${id}-tab`}>
-            {isSelected && children}
+            {children}
         </div>
     );
 };

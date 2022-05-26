@@ -40,9 +40,9 @@ export default class GraphOptions {
         );
     }
 
-    private constructor(private axis: Axis, private canvas: Size, private margins: Margins) {
-        axis.x.range([0, this.width]);
-        axis.y.range([0, this.height]);
+    private constructor(private axis: Axis, private _canvas: Size, private margins: Margins) {
+        axis.x.range([0, this.graph.width]);
+        axis.y.range([0, this.graph.height]);
     }
 
     public withCanvasSize(canvas: Size): GraphOptions {
@@ -51,7 +51,11 @@ export default class GraphOptions {
             y: this.axis.y.copy(),
         };
 
-        return new GraphOptions(axis, canvas, this.margins);
+        return new GraphOptions(
+            axis,
+            { height: Math.max(canvas.height, 0), width: Math.max(canvas.width, 0) },
+            this.margins,
+        );
     }
 
     public withMargins(margins: Margins): GraphOptions {
@@ -73,12 +77,11 @@ export default class GraphOptions {
         return this.margins[key];
     }
 
-    public get width(): number {
-        return this.canvas.width - this.margins.left - this.margins.right;
-    }
-
-    public get height(): number {
-        return this.canvas.height - this.margins.top - this.margins.bottom;
+    public get graph(): Size {
+        return {
+            height: this.canvas.height - this.margins.top - this.margins.bottom,
+            width: this.canvas.width - this.margins.left - this.margins.right,
+        };
     }
 
     public get bottomAxisPosition(): string {
@@ -95,5 +98,9 @@ export default class GraphOptions {
 
     public get y(): d3.ScaleContinuousNumeric<number, number, never> {
         return this.axis.y;
+    }
+
+    public get canvas(): Size {
+        return this._canvas;
     }
 }

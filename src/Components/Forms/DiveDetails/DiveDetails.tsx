@@ -25,19 +25,12 @@ type FormType = {
     tanks: DiveTank[];
 };
 
-const Details: React.FC<{ dive: DiveDetail }> = ({ dive }) => {
+const Details: React.FC<{ dive: DiveDetail; onUpdate: (data: FormType) => Promise<void> }> = ({ dive, onUpdate }) => {
     const form = useForm<FormType>({
         defaultValues: dive,
     });
-    // const { accessToken } = useAccessToken();
-
     async function handleSubmit2(data: FormType): Promise<void> {
-        console.log('submit', data);
-        form.setError('max_depth', { message: 'error on place' });
-        form.setError('tanks.0.pressure.begin', { message: 'Something wrong' });
-        // await updateDive(accessToken, dive.dive_id, {
-        //     ...dive,
-        // });
+        await onUpdate(data);
     }
 
     return (
