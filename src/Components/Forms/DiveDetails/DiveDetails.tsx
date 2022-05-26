@@ -2,7 +2,9 @@ import React from 'react';
 
 import { useForm } from 'react-hook-form';
 
+import { DiveBuddy } from '../../../api/types/dives/DiveBuddy';
 import { DiveDetail } from '../../../api/types/dives/DiveDetail';
+import { DiveTag } from '../../../api/types/dives/DiveTag';
 import { Place } from '../../../api/types/places/country';
 import { DiveTank } from '../../../api/types/tanks/DiveTank';
 import Button from '../../FormComponents/Button';
@@ -23,6 +25,8 @@ type FormType = {
     date: Date;
     place: null | Place;
     tanks: DiveTank[];
+    buddies: DiveBuddy[];
+    tags: DiveTag[];
 };
 
 const Details: React.FC<{ dive: DiveDetail; onUpdate: (data: FormType) => Promise<void> }> = ({ dive, onUpdate }) => {
