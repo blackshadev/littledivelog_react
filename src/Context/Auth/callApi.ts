@@ -5,30 +5,37 @@ import AuthenticationError from '../../api/errors/AuthenticationError';
 import { setAccessToken } from '../../Store/Auth/actions';
 import { AuthContext } from './auth';
 
-type ApiState<T> = {
-    data: T | undefined;
-    loading: boolean;
-};
+type ApiState<T> =
+    | {
+          data: undefined;
+          loading: true;
+      }
+    | {
+          data: T;
+          loading: false;
+      };
 
 export default function useApi<T extends unknown[], R>(
     fn: (token: string, ...args: T) => Promise<R>,
     ...args: T
 ): ApiState<R> {
     const [apiData, setApiData] = useReducer<Reducer<ApiState<R>, Partial<ApiState<R>>>>(
-        (state, newState) => ({
-            ...state,
-            ...newState,
-        }),
+        (state, newState) =>
+            ({
+                ...state,
+                ...newState,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } as any),
         {
             data: undefined,
-            loading: false,
+            loading: true,
         } as ApiState<R>,
     );
     const { state, dispatch } = useContext(AuthContext);
 
     useEffect((): (() => void) => {
         let mounted = true;
-        setApiData({ loading: true });
+        setApiData({ data: undefined, loading: true });
 
         const getData = async (...args: T): Promise<R> => {
             if (!state.accessToken || !state.refreshToken) {

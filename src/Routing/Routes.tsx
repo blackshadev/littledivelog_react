@@ -1,5 +1,6 @@
 import React from 'react';
 
+import BuddyDetail from '../Pages/BuddyDetail';
 import DiveDetails from '../Pages/DiveDetails';
 import Dives from '../Pages/Dives';
 import Home from '../Pages/Home';
@@ -15,6 +16,7 @@ export enum Route {
     Login,
     Dives,
     DiveDetail,
+    BuddyDetail,
 }
 
 const _allRoutes: { [key in Route]: RouteProperties } = {
@@ -22,16 +24,14 @@ const _allRoutes: { [key in Route]: RouteProperties } = {
     [Route.Login]: { element: <Login />, path: '/login' },
     [Route.Dives]: { element: <Dives />, path: '/dives' },
     [Route.DiveDetail]: { element: <DiveDetails />, path: '/dives/:diveId' },
+    [Route.BuddyDetail]: { element: <BuddyDetail />, path: '/buddy/:buddyId' },
 };
 
 export function getRouteProperties(route: Route): RouteProperties {
     return _allRoutes[route];
 }
 
-export function route(
-    route: Route,
-    params: { [name: string]: string } = {},
-): string {
+export function route(route: Route, params: { [name: string]: string } = {}): string {
     const paramRegExp = /:([^/]+)/g;
 
     const path = getRouteProperties(route).path;

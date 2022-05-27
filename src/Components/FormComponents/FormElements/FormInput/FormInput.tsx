@@ -33,7 +33,7 @@ const FormInput: React.FC<FormInputProps> = ({ Input, name, label, ...props }) =
                     onValueChange={(value?: unknown): void => {
                         field.onChange(value);
                     }}
-                    value={field.value}
+                    value={field.value ?? ''}
                     label={label}
                     name={name}
                     {...props}

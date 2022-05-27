@@ -4,7 +4,7 @@ export type BuddyDetail = {
     color: string;
     dive_count: number;
     last_dive: Date;
-    email: string | null;
+    email: string | undefined;
     buddy_user_id: number;
     updated: Date;
 };

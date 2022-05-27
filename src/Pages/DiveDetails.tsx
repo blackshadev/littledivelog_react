@@ -14,7 +14,7 @@ const DiveDetails: React.FC = () => {
     const dive = useApi(getDive, Number(diveId));
     const [selectedTab, setSelectedTab] = useState('dive');
 
-    if (dive.loading || !dive.data) {
+    if (dive.loading) {
         return <span>Loading...</span>;
     }
 
