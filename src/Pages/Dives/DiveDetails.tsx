@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { getDive } from '../api/dives';
-import DiveProfile from '../Components/DiveProfile';
-import DiveDetailsForm from '../Components/Forms/DiveDetails';
-import { TabPanel } from '../Components/Tabs';
-import Tabs from '../Components/Tabs/Tabs';
-import useApi from '../Context/Auth/callApi';
+import { getDive } from '../../api/dives';
+import DiveProfile from '../../Components/DiveProfile';
+import DiveDetailsForm from '../../Components/Forms/DiveDetails';
+import { TabPanel } from '../../Components/Tabs';
+import Tabs from '../../Components/Tabs/Tabs';
+import useApiData from '../../Context/Auth/callApi';
 
 const DiveDetails: React.FC = () => {
     const { diveId } = useParams<{ diveId: string }>();
-    const dive = useApi(getDive, Number(diveId));
+    const dive = useApiData(getDive, Number(diveId));
     const [selectedTab, setSelectedTab] = useState('dive');
 
     if (dive.loading) {

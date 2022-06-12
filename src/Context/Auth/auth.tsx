@@ -8,19 +8,26 @@ import createReducerContext from '../../Store/createReducerContext';
 export const AuthContext = createReducerContext(initialState);
 AuthContext.displayName = 'AuthContext';
 
-const AuthProvider: React.FC<{ children?: React.ReactNode | undefined }> = ({
-    children,
-}) => {
-    const [state, dispatch] = useReducer(authReducer, initialState);
+function safeParseJson<T>(str: unknown): undefined | T {
+    if (typeof str !== 'string') {
+        return undefined;
+    }
+
+    try {
+        return JSON.parse(str);
+    } catch (e) {
+        return undefined;
+    }
+}
+
+const AuthProvider: React.FC<{ children?: React.ReactNode | undefined }> = ({ children }) => {
+    const authStr = localStorage.getItem('auth');
+    const startingState = safeParseJson<typeof initialState>(authStr) ?? initialState;
+
+    const [state, dispatch] = useReducer(authReducer, startingState);
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        const authStr = localStorage.getItem('auth');
-        if (authStr) {
-            dispatch(actions.load(JSON.parse(authStr)));
-        } else {
-            dispatch(actions.load({}));
-        }
         setLoaded(true);
     }, []);
 
@@ -31,11 +38,7 @@ const AuthProvider: React.FC<{ children?: React.ReactNode | undefined }> = ({
         localStorage.setItem('auth', JSON.stringify(state));
     }, [state, loaded]);
 
-    return (
-        <AuthContext.Provider value={{ dispatch, state }}>
-            {children}
-        </AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={{ dispatch, state }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

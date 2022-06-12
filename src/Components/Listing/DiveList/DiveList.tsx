@@ -34,7 +34,7 @@ const DiveList: React.FC<{ dives: DiveSummary[] }> = ({ dives }) => {
                         <Cell>{formatDivetime(dive.divetime)}</Cell>
                         <Cell>
                             {dive.tags.map((t) => (
-                                <Tag key={t.tag_id} label={t.text} color={t.color}></Tag>
+                                <Tag key={t.tag_id} label={t.text} backgroundColor={t.color}></Tag>
                             ))}
                         </Cell>
                         <Cell>{formatPlace(dive.place)}</Cell>

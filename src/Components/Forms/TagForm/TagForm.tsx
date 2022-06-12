@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { BuddyDetail } from '../../../api/types/buddies/BuddyDetail';
+import { useForm } from 'react-hook-form';
+
+import { TagSummary } from '../../../api/types/tags/TagSummary';
 import useFormWithValue from '../../../Helpers/useFormWithValue';
 import Button from '../../FormComponents/Button';
 import Form from '../../FormComponents/Form';
@@ -13,21 +15,16 @@ import TextField from '../../FormComponents/Inputs/TextField';
 type FormType = {
     text: string;
     color: string;
-    email: string;
 };
 
-const BuddyForm: React.FC<{ buddy: BuddyDetail; onSubmit: (data: FormType) => Promise<void> }> = ({
-    buddy,
-    onSubmit,
-}) => {
-    const form = useFormWithValue<FormType>(buddy);
+const TagForm: React.FC<{ tag: TagSummary; onSubmit: (data: FormType) => Promise<void> }> = ({ tag, onSubmit }) => {
+    const form = useFormWithValue<FormType>(tag);
 
     return (
         <Form submitOnBlur={true} onSubmit={onSubmit} form={form}>
             <VerticalLayout>
                 <FormInput name="text" placeholder="John Doe" label="Name" Input={TextField} />
                 <FormInput name="color" placeholder="#123456" label="Color" Input={ColorPicker} />
-                <FormInput name="email" placeholder="test@example.com" label="Email" Input={TextField} />
                 <FormInput name="dive_count" label="Dive Count" Input={StaticText} />
                 <FormInput name="last_dive" label="Last Dive" Input={StaticText} />
                 <FormInput name="updated" label="Last Updated" Input={StaticText} />
@@ -40,4 +37,4 @@ const BuddyForm: React.FC<{ buddy: BuddyDetail; onSubmit: (data: FormType) => Pr
     );
 };
 
-export default BuddyForm;
+export default TagForm;

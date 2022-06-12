@@ -1,8 +1,8 @@
-import { Reducer, useContext, useEffect, useReducer } from 'react';
+import { Reducer, useCallback, useContext, useEffect, useReducer } from 'react';
 
 import { getAccessToken } from '../../api/auth';
 import AuthenticationError from '../../api/errors/AuthenticationError';
-import { setAccessToken } from '../../Store/Auth/actions';
+import { logOut, setAccessToken } from '../../Store/Auth/actions';
 import { AuthContext } from './auth';
 
 type ApiState<T> =
@@ -15,10 +15,18 @@ type ApiState<T> =
           loading: false;
       };
 
-export default function useApi<T extends unknown[], R>(
+export default function useApiData<T extends unknown[], R>(
     fn: (token: string, ...args: T) => Promise<R>,
     ...args: T
 ): ApiState<R> {
+    const [apiState] = useApiState(fn, ...args);
+    return apiState;
+}
+
+export function useApiState<T extends unknown[], R>(
+    fn: (token: string, ...args: T) => Promise<R>,
+    ...args: T
+): [ApiState<R>, (value: ApiState<R>) => void] {
     const [apiData, setApiData] = useReducer<Reducer<ApiState<R>, Partial<ApiState<R>>>>(
         (state, newState) =>
             ({
@@ -31,33 +39,12 @@ export default function useApi<T extends unknown[], R>(
             loading: true,
         } as ApiState<R>,
     );
-    const { state, dispatch } = useContext(AuthContext);
+
+    const getData = useApiCall(fn);
 
     useEffect((): (() => void) => {
         let mounted = true;
         setApiData({ data: undefined, loading: true });
-
-        const getData = async (...args: T): Promise<R> => {
-            if (!state.accessToken || !state.refreshToken) {
-                throw new Error('No tokens');
-            }
-
-            try {
-                return await fn(state.accessToken, ...args);
-            } catch (err) {
-                if (!state.refreshToken) {
-                    throw new Error('No refresh token');
-                }
-                if (err instanceof AuthenticationError) {
-                    const token = await getAccessToken(state.refreshToken);
-                    dispatch(setAccessToken(token));
-
-                    return await fn(token, ...args);
-                }
-
-                throw err;
-            }
-        };
 
         getData(...args).then((data) => {
             if (mounted) {
@@ -71,7 +58,52 @@ export default function useApi<T extends unknown[], R>(
         return (): void => {
             mounted = false;
         };
-    }, [state]);
+    }, [getData]);
 
-    return apiData;
+    return [apiData, setApiData];
+}
+
+export function useApiCall<T extends unknown[], R>(
+    fn: (token: string, ...args: T) => Promise<R>,
+): (...args: T) => Promise<R> {
+    const { state, dispatch } = useContext(AuthContext);
+
+    const authenticate = useCallback(async (refreshToken: string): Promise<string> => {
+        let token: string;
+        try {
+            token = await getAccessToken(refreshToken);
+        } catch (err) {
+            if (err instanceof AuthenticationError) {
+                dispatch(logOut);
+            }
+            throw err;
+        }
+        dispatch(setAccessToken(token));
+
+        return token;
+    }, []);
+
+    return useCallback(
+        async (...args: T) => {
+            if (!state.accessToken || !state.refreshToken) {
+                throw new Error('No tokens');
+            }
+
+            try {
+                return await fn(state.accessToken, ...args);
+            } catch (err) {
+                if (!state.refreshToken) {
+                    throw new Error('No refresh token');
+                }
+                if (err instanceof AuthenticationError) {
+                    const token = await authenticate(state.refreshToken);
+
+                    return await fn(token, ...args);
+                }
+
+                throw err;
+            }
+        },
+        [state, authenticate],
+    );
 }

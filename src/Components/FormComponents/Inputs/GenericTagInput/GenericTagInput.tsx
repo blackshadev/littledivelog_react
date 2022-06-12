@@ -4,7 +4,7 @@ import { Autocomplete, CircularProgress, createFilterOptions, TextField as MUITe
 
 import { randomColor } from '../../../../Helpers/Colors/randomColor';
 import useDebounce from '../../../../Helpers/useDebounce';
-import { ChipWithTextColor } from '../../../Tag/components';
+import { Tag } from '../../../Tag/components';
 import FormFieldError from '../../FormFieldError';
 
 type Props<T> = {
@@ -88,7 +88,7 @@ const GenericTagInput = <T extends GenericTag>({
             renderTags={(value, getTagProps): React.ReactElement[] =>
                 value.map((option: T, index: number) => {
                     return (
-                        <ChipWithTextColor
+                        <Tag
                             label={option.text}
                             backgroundColor={option.color}
                             {...getTagProps({ index })}

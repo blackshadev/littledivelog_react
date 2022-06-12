@@ -28,7 +28,8 @@ export const TableBody = styled.tbody``;
 
 export const Cell = styled.td`
     ${sharedCellStyling};
-    padding: ${spacing.sm} 0;
+    padding-top: ${spacing.sm};
+    padding-bottom: ${spacing.sm};
 `;
 
 export const Row = styled.tr`

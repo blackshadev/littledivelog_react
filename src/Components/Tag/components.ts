@@ -7,7 +7,7 @@ import spacing from '../../Styling/Constants/spacing';
 
 type ChipPropsWithTextColor = ChipProps & { backgroundColor: string };
 
-export const ChipWithTextColor = styled(Chip, {
+export const Tag = styled(Chip, {
     shouldForwardProp: (prop) => prop !== 'backgroundColor',
 })<ChipPropsWithTextColor>`
     .${chipClasses.label} {

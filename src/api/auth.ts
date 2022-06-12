@@ -5,13 +5,7 @@ import handleServerError from './handleServerError';
 
 export type LoginResponse = { refresh_token: string; access_token: string };
 
-export async function login({
-    email,
-    password,
-}: {
-    email: string;
-    password: string;
-}): Promise<LoginResponse> {
+export async function login({ email, password }: { email: string; password: string }): Promise<LoginResponse> {
     const promise = axios.post<LoginResponse>(`${apiURL}/auth/sessions`, {
         email,
         password,
@@ -48,14 +42,11 @@ export async function register({
 }
 
 export async function getAccessToken(refreshToken: string): Promise<string> {
-    const promise = axios.get<{ access_token: string }>(
-        `${apiURL}/auth/sessions/refresh`,
-        {
-            headers: {
-                ...withAuthorizationToken(refreshToken),
-            },
+    const promise = axios.get<{ access_token: string }>(`${apiURL}/auth/sessions/refresh`, {
+        headers: {
+            ...withAuthorizationToken(refreshToken),
         },
-    );
+    });
     const response = await handleServerError(promise);
     return response.data.access_token;
 }
