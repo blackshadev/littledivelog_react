@@ -6,7 +6,18 @@ import { withAuthorizationToken } from './auth';
 import { apiURL } from './config';
 import handleServerError from './handleServerError';
 
-export async function saveTag(accessToken: string, tagId: number, data: WriteTag): Promise<TagSummary> {
+export async function newTag(accessToken: string, data: WriteTag): Promise<TagSummary> {
+    const promise = axios.post<TagSummary>(`${apiURL}/tags`, data, {
+        headers: {
+            ...withAuthorizationToken(accessToken),
+        },
+    });
+    const response = await handleServerError(promise);
+
+    return response.data;
+}
+
+export async function updateTag(accessToken: string, tagId: number, data: WriteTag): Promise<TagSummary> {
     const promise = axios.put<TagSummary>(`${apiURL}/tags/${tagId}`, data, {
         headers: {
             ...withAuthorizationToken(accessToken),

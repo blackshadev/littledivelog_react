@@ -7,7 +7,18 @@ import { withAuthorizationToken } from './auth';
 import { apiURL } from './config';
 import handleServerError from './handleServerError';
 
-export async function saveBuddy(accessToken: string, buddyId: number, data: BuddyUpdate): Promise<BuddyDetail> {
+export async function newBuddy(accessToken: string, data: BuddyUpdate): Promise<BuddyDetail> {
+    const promise = axios.post<BuddyDetail>(`${apiURL}/buddies`, data, {
+        headers: {
+            ...withAuthorizationToken(accessToken),
+        },
+    });
+    const response = await handleServerError(promise);
+
+    return response.data;
+}
+
+export async function updateBuddy(accessToken: string, buddyId: number, data: BuddyUpdate): Promise<BuddyDetail> {
     const promise = axios.put<BuddyDetail>(`${apiURL}/buddies/${buddyId}`, data, {
         headers: {
             ...withAuthorizationToken(accessToken),

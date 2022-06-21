@@ -14,13 +14,17 @@ import CountrySelectInput from './CountrySelectInput';
 
 type PlaceAutoCompleteArgs = {
     name: string;
-    value?: Place;
+    value: null | Place;
     placeholder: string;
     label: string;
     onValueChange(value: null | Place): void;
 };
 
 const PlaceSearch: React.FC<PlaceAutoCompleteArgs> = ({ value, onValueChange, placeholder, label, name }) => {
+    if (typeof value === 'string') {
+        value = null;
+    }
+
     const { errors } = useFormState();
     const error = get(errors, name)?.message as string | undefined;
 

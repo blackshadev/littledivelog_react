@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { BuddyDetail } from '../../../api/types/buddies/BuddyDetail';
+import { Optional } from '../../../Helpers/Optional';
 import useFormWithValue from '../../../Helpers/useFormWithValue';
 import Button from '../../FormComponents/Button';
 import Form from '../../FormComponents/Form';
@@ -16,7 +17,7 @@ type FormType = {
     email: string;
 };
 
-const BuddyForm: React.FC<{ buddy: BuddyDetail; onSubmit: (data: FormType) => Promise<void> }> = ({
+const BuddyForm: React.FC<{ buddy: Optional<BuddyDetail>; onSubmit: (data: FormType) => Promise<void> }> = ({
     buddy,
     onSubmit,
 }) => {

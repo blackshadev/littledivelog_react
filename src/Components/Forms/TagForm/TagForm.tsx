@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { useForm } from 'react-hook-form';
-
 import { TagSummary } from '../../../api/types/tags/TagSummary';
+import { Optional } from '../../../Helpers/Optional';
 import useFormWithValue from '../../../Helpers/useFormWithValue';
 import Button from '../../FormComponents/Button';
 import Form from '../../FormComponents/Form';
@@ -17,7 +16,10 @@ type FormType = {
     color: string;
 };
 
-const TagForm: React.FC<{ tag: TagSummary; onSubmit: (data: FormType) => Promise<void> }> = ({ tag, onSubmit }) => {
+const TagForm: React.FC<{ tag: Optional<TagSummary>; onSubmit: (data: FormType) => Promise<void> }> = ({
+    tag,
+    onSubmit,
+}) => {
     const form = useFormWithValue<FormType>(tag);
 
     return (

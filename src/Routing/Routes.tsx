@@ -1,12 +1,15 @@
 import React from 'react';
 
 import BuddyDetail from '../Pages/Buddies/BuddyDetail';
+import BuddyDetailNew from '../Pages/Buddies/BuddyDetailNew';
 import BuddyOverview from '../Pages/Buddies/BuddyOverview';
 import DiveDetails from '../Pages/Dives/DiveDetails';
+import DiveDetailsNew from '../Pages/Dives/DiveDetailsNew';
 import DiveOverview from '../Pages/Dives/DiveOverview';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import TagDetail from '../Pages/Tags/TagDetail';
+import TagDetailNew from '../Pages/Tags/TagDetailNew';
 import TagsOverview from '../Pages/Tags/TagsOverview';
 import { Role } from '../Store/Auth/roles';
 
@@ -21,10 +24,13 @@ export enum Route {
     Login,
     Dives,
     DiveDetail,
+    DiveDetailNew,
     Buddies,
     BuddyDetail,
+    BuddyDetailNew,
     Tags,
     TagDetail,
+    TagDetailNew,
 }
 
 const _allRoutes: { [key in Route]: RouteProperties } = {
@@ -32,9 +38,12 @@ const _allRoutes: { [key in Route]: RouteProperties } = {
     [Route.Login]: { element: <Login />, path: '/login', role: Role.Guest },
     [Route.Dives]: { element: <DiveOverview />, path: '/dives', role: Role.User },
     [Route.DiveDetail]: { element: <DiveDetails />, path: '/dives/:diveId', role: Role.User },
+    [Route.DiveDetailNew]: { element: <DiveDetailsNew />, path: '/dives/new', role: Role.User },
     [Route.Buddies]: { element: <BuddyOverview />, path: '/buddy/', role: Role.User },
     [Route.BuddyDetail]: { element: <BuddyDetail />, path: '/buddy/:buddyId', role: Role.User },
+    [Route.BuddyDetailNew]: { element: <BuddyDetailNew />, path: '/buddy/new', role: Role.User },
     [Route.Tags]: { element: <TagsOverview />, path: '/tag', role: Role.User },
+    [Route.TagDetailNew]: { element: <TagDetailNew />, path: '/tag/new', role: Role.User },
     [Route.TagDetail]: { element: <TagDetail />, path: '/tag/:tagId', role: Role.User },
 };
 

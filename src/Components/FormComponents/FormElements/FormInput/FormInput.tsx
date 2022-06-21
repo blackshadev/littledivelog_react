@@ -10,15 +10,18 @@ type FormInputProps = React.ComponentProps<typeof TextField> & {
     label: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Input?: React.FC<any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    defaultValue?: any;
 };
 
-const FormInput: React.FC<FormInputProps> = ({ Input, name, label, ...props }) => {
+const FormInput: React.FC<FormInputProps> = ({ Input, name, label, defaultValue, ...props }) => {
     const ChildInput = Input ?? TextField;
     const submitContext = useContext(SubmitContext);
 
     return (
         <Controller
             name={name}
+            defaultValue={defaultValue}
             render={({ field }): React.ReactElement => (
                 <ChildInput
                     onBlur={(event: React.FocusEvent<HTMLInputElement>, value?: unknown): void => {

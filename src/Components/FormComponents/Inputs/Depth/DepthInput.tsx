@@ -15,6 +15,9 @@ const DepthInput: React.FC<React.ComponentProps<typeof TextField> & CustomInputP
     onBlur,
     ...props
 }) => {
+    if (typeof value === 'string') {
+        value = null;
+    }
     const [depth, setDepth] = useState<number | null>(value);
     const [formattedDepth, setFormattedDepth] = useState<string>('');
 

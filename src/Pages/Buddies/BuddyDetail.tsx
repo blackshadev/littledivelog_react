@@ -9,7 +9,7 @@ import { useApiCall, useApiState } from '../../Context/Auth/callApi';
 const BuddyDetail: React.FC = () => {
     const { buddyId } = useParams<{ buddyId: string }>();
     const [buddy, setBuddy] = useApiState(api.getBuddy, Number(buddyId));
-    const saveBuddy = useApiCall(api.saveBuddy);
+    const saveBuddy = useApiCall(api.updateBuddy);
 
     if (buddy.loading) {
         return <span>Loading...</span>;
@@ -21,6 +21,7 @@ const BuddyDetail: React.FC = () => {
             onSubmit={async (data): Promise<void> => {
                 const newBuddyData = await saveBuddy(buddy.data.buddy_id, {
                     color: data.color,
+                    email: data.email,
                     text: data.text,
                 });
 

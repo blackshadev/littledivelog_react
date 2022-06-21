@@ -7,6 +7,7 @@ import { DiveDetail } from '../../../api/types/dives/DiveDetail';
 import { DiveTag } from '../../../api/types/dives/DiveTag';
 import { Place } from '../../../api/types/places/country';
 import { DiveTank } from '../../../api/types/tanks/DiveTank';
+import { Optional } from '../../../Helpers/Optional';
 import Button from '../../FormComponents/Button';
 import Form from '../../FormComponents/Form';
 import FormInput from '../../FormComponents/FormElements/FormInput';
@@ -29,7 +30,10 @@ type FormType = {
     tags: DiveTag[];
 };
 
-const Details: React.FC<{ dive: DiveDetail; onUpdate: (data: FormType) => Promise<void> }> = ({ dive, onUpdate }) => {
+const Details: React.FC<{ dive: Optional<DiveDetail>; onUpdate: (data: FormType) => Promise<void> }> = ({
+    dive,
+    onUpdate,
+}) => {
     const form = useForm<FormType>({
         defaultValues: dive,
     });
@@ -44,9 +48,15 @@ const Details: React.FC<{ dive: DiveDetail; onUpdate: (data: FormType) => Promis
                 <FormInput name="divetime" placeholder="01:34:12" label="Duration" Input={DurationInput} />
                 <FormInput name="max_depth" placeholder="8.4" label="Max depth" Input={DepthInput} />
                 <FormInput name="place" label="Divespot" placeholder="Zeeland brug" Input={PlaceSearch} />
-                <FormInput name="buddies" label="Buddies" placeholder="John Doe" Input={BuddySearch} />
-                <FormInput name="tags" label="Tags" placeholder="Deco" Input={TagsInput} />
-                <FormInput name="tanks" label="Tank" placeholder="Tank" Input={TanksInput} />
+                <FormInput
+                    name="buddies"
+                    label="Buddies"
+                    placeholder="John Doe"
+                    defaultValue={[]}
+                    Input={BuddySearch}
+                />
+                <FormInput name="tags" label="Tags" placeholder="Deco" defaultValue={[]} Input={TagsInput} />
+                <FormInput name="tanks" label="Tank" placeholder="Tank" defaultValue={[]} Input={TanksInput} />
 
                 <Button variant="contained" type="submit">
                     Submit

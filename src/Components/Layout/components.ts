@@ -16,6 +16,7 @@ export const Container = styled.div`
         position: absolute;
         flex-grow: 1;
         left: ${navWidth};
+        padding: ${spacing.md} ${spacing.xxl};
         min-height: 100%;
         top: 0;
         right: 0;

@@ -9,7 +9,7 @@ import { useApiCall, useApiState } from '../../Context/Auth/callApi';
 const TagDetail: React.FC = () => {
     const { tagId } = useParams<{ tagId: string }>();
     const [tag, setTag] = useApiState(api.getTag, Number(tagId));
-    const saveTag = useApiCall(api.saveTag);
+    const saveTag = useApiCall(api.updateTag);
 
     if (tag.loading) {
         return <span>Loading...</span>;
