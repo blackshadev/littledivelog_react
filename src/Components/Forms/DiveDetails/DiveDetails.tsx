@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { useForm } from 'react-hook-form';
-
 import { DiveBuddy } from '../../../api/types/dives/DiveBuddy';
 import { DiveDetail } from '../../../api/types/dives/DiveDetail';
 import { DiveTag } from '../../../api/types/dives/DiveTag';
 import { Place } from '../../../api/types/places/country';
 import { DiveTank } from '../../../api/types/tanks/DiveTank';
+import formatDatetime from '../../../Helpers/Formatters/formatDatetime';
 import { Optional } from '../../../Helpers/Optional';
-import Button from '../../FormComponents/Button';
+import useFormWithValue from '../../../Helpers/useFormWithValue';
+import SaveButton from '../../Buttons/SaveButton';
 import Form from '../../FormComponents/Form';
 import FormInput from '../../FormComponents/FormElements/FormInput';
 import VerticalLayout from '../../FormComponents/FormLayout/VerticalLayout';
@@ -17,6 +17,7 @@ import DateTimePickerInput from '../../FormComponents/Inputs/DateTimePicker';
 import DepthInput from '../../FormComponents/Inputs/Depth';
 import DurationInput from '../../FormComponents/Inputs/DurationInput';
 import PlaceSearch from '../../FormComponents/Inputs/PlaceSearch';
+import StaticText from '../../FormComponents/Inputs/StaticText';
 import TagsInput from '../../FormComponents/Inputs/TagsInput';
 import TanksInput from '../../FormComponents/Inputs/TankInput';
 
@@ -34,15 +35,10 @@ const Details: React.FC<{ dive: Optional<DiveDetail>; onUpdate: (data: FormType)
     dive,
     onUpdate,
 }) => {
-    const form = useForm<FormType>({
-        defaultValues: dive,
-    });
-    async function handleSubmit2(data: FormType): Promise<void> {
-        await onUpdate(data);
-    }
+    const form = useFormWithValue<FormType>(dive);
 
     return (
-        <Form submitOnBlur={true} onSubmit={handleSubmit2} form={form}>
+        <Form onSubmit={onUpdate} form={form}>
             <VerticalLayout>
                 <FormInput name="date" placeholder="2021-02-26 11:38:00" label="Date" Input={DateTimePickerInput} />
                 <FormInput name="divetime" placeholder="01:34:12" label="Duration" Input={DurationInput} />
@@ -57,10 +53,14 @@ const Details: React.FC<{ dive: Optional<DiveDetail>; onUpdate: (data: FormType)
                 />
                 <FormInput name="tags" label="Tags" placeholder="Deco" defaultValue={[]} Input={TagsInput} />
                 <FormInput name="tanks" label="Tank" placeholder="Tank" defaultValue={[]} Input={TanksInput} />
+                <FormInput
+                    name="updated"
+                    label="Last Updated"
+                    Input={StaticText}
+                    transformValue={(t): string => formatDatetime(t)}
+                />
 
-                <Button variant="contained" type="submit">
-                    Submit
-                </Button>
+                <SaveButton />
             </VerticalLayout>
         </Form>
     );

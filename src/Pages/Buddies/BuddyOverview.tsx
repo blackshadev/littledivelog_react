@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { listBuddies } from '../../api/buddies';
-import AddButton from '../../Components/Buttons/AddButton/AddButton';
+import AddButton from '../../Components/Buttons/AddButton';
 import BuddyList from '../../Components/Listing/BuddyList';
 import useApiData from '../../Context/Auth/callApi';
 import Route from '../../Routing/Routes';

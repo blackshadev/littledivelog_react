@@ -51,3 +51,14 @@ export async function updateDive(accessToken: string, diveId: number, dive: Dive
 
     return response.data;
 }
+
+export async function newDive(accessToken: string, dive: DiveUpdate): Promise<DiveDetail> {
+    const promise = axios.post<DiveDetail>(`${apiURL}/dives`, dive, {
+        headers: {
+            ...withAuthorizationToken(accessToken),
+        },
+    });
+    const response = await handleServerError(promise);
+
+    return response.data;
+}

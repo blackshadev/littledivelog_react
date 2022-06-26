@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { BuddyDetail } from '../../../api/types/buddies/BuddyDetail';
+import formatDatetime from '../../../Helpers/Formatters/formatDatetime';
 import { Optional } from '../../../Helpers/Optional';
 import useFormWithValue from '../../../Helpers/useFormWithValue';
-import Button from '../../FormComponents/Button';
+import SaveButton from '../../Buttons/SaveButton';
 import Form from '../../FormComponents/Form';
 import FormInput from '../../FormComponents/FormElements/FormInput';
 import VerticalLayout from '../../FormComponents/FormLayout/VerticalLayout';
@@ -30,12 +31,20 @@ const BuddyForm: React.FC<{ buddy: Optional<BuddyDetail>; onSubmit: (data: FormT
                 <FormInput name="color" placeholder="#123456" label="Color" Input={ColorPicker} />
                 <FormInput name="email" placeholder="test@example.com" label="Email" Input={TextField} />
                 <FormInput name="dive_count" label="Dive Count" Input={StaticText} />
-                <FormInput name="last_dive" label="Last Dive" Input={StaticText} />
-                <FormInput name="updated" label="Last Updated" Input={StaticText} />
+                <FormInput
+                    name="last_dive"
+                    label="Last Dive"
+                    Input={StaticText}
+                    transformValue={(t): string => formatDatetime(t)}
+                />
+                <FormInput
+                    name="updated"
+                    label="Last Updated"
+                    Input={StaticText}
+                    transformValue={(t): string => formatDatetime(t)}
+                />
 
-                <Button variant="contained" type="submit">
-                    Submit
-                </Button>
+                <SaveButton />
             </VerticalLayout>
         </Form>
     );

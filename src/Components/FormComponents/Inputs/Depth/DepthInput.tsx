@@ -6,7 +6,7 @@ import TextField from '../TextField';
 type CustomInputProps<T> = {
     value: T;
     onValueChange?: (value: T) => void;
-    onBlur?: React.FocusEventHandler;
+    onBlur?: (event: React.FocusEvent, value?: T) => void;
 };
 
 const DepthInput: React.FC<React.ComponentProps<typeof TextField> & CustomInputProps<number | null>> = ({
@@ -36,7 +36,7 @@ const DepthInput: React.FC<React.ComponentProps<typeof TextField> & CustomInputP
                 const depth = parseFormattedDepth(formattedDepth);
                 setDepth(depth);
                 onValueChange?.(depth);
-                onBlur?.(event);
+                onBlur?.(event, depth);
             }}
             {...props}
         ></TextField>

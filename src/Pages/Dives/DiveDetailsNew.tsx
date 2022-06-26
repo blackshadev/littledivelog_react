@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
+import * as api from '../../api/dives';
 import DiveDetailsForm from '../../Components/Forms/DiveDetails';
 import { TabPanel } from '../../Components/Tabs';
 import Tabs from '../../Components/Tabs/Tabs';
+import { useApiCall } from '../../Context/Auth/callApi';
+import Route, { route } from '../../Routing/Routes';
 
-const DiveDetailsNew: React.FC = () => {
+export default function DiveDetailsNew(): React.ReactElement {
     const [selectedTab, setSelectedTab] = useState('dive');
+    const navigate = useNavigate();
+
+    const newDive = useApiCall(api.newDive);
 
     return (
         <>
@@ -21,7 +29,8 @@ const DiveDetailsNew: React.FC = () => {
                 <DiveDetailsForm
                     dive={{}}
                     onUpdate={async (data): Promise<void> => {
-                        console.log(data);
+                        const newDiveData = await newDive(data);
+                        navigate(route(Route.DiveDetail, { diveId: newDiveData.dive_id + '' }));
                     }}
                 />
             </TabPanel>
@@ -29,6 +38,4 @@ const DiveDetailsNew: React.FC = () => {
             <TabPanel id="profile" selectedTab={selectedTab}></TabPanel>
         </>
     );
-};
-
-export default DiveDetailsNew;
+}

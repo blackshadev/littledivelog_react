@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { TagSummary } from '../../../api/types/tags/TagSummary';
+import formatDatetime from '../../../Helpers/Formatters/formatDatetime';
 import { Optional } from '../../../Helpers/Optional';
 import useFormWithValue from '../../../Helpers/useFormWithValue';
-import Button from '../../FormComponents/Button';
+import SaveButton from '../../Buttons/SaveButton';
 import Form from '../../FormComponents/Form';
 import FormInput from '../../FormComponents/FormElements/FormInput';
 import VerticalLayout from '../../FormComponents/FormLayout/VerticalLayout';
@@ -28,12 +29,20 @@ const TagForm: React.FC<{ tag: Optional<TagSummary>; onSubmit: (data: FormType) 
                 <FormInput name="text" placeholder="John Doe" label="Name" Input={TextField} />
                 <FormInput name="color" placeholder="#123456" label="Color" Input={ColorPicker} />
                 <FormInput name="dive_count" label="Dive Count" Input={StaticText} />
-                <FormInput name="last_dive" label="Last Dive" Input={StaticText} />
-                <FormInput name="updated" label="Last Updated" Input={StaticText} />
+                <FormInput
+                    name="last_dive"
+                    label="Last Dive"
+                    Input={StaticText}
+                    transformValue={(t): string => formatDatetime(t)}
+                />
+                <FormInput
+                    name="updated"
+                    label="Last Updated"
+                    Input={StaticText}
+                    transformValue={(t): string => formatDatetime(t)}
+                />
 
-                <Button variant="contained" type="submit">
-                    Submit
-                </Button>
+                <SaveButton />
             </VerticalLayout>
         </Form>
     );

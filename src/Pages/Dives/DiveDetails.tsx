@@ -3,16 +3,19 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getDive } from '../../api/dives';
+import * as api from '../../api/dives';
 import DiveProfile from '../../Components/DiveProfile';
 import DiveDetailsForm from '../../Components/Forms/DiveDetails';
 import { TabPanel } from '../../Components/Tabs';
 import Tabs from '../../Components/Tabs/Tabs';
-import useApiData from '../../Context/Auth/callApi';
+import { useApiCall, useApiState } from '../../Context/Auth/callApi';
 
-const DiveDetails: React.FC = () => {
+export default function DiveDetails(): React.ReactElement {
     const { diveId } = useParams<{ diveId: string }>();
-    const dive = useApiData(getDive, Number(diveId));
+    const [dive, setDive] = useApiState(getDive, Number(diveId));
     const [selectedTab, setSelectedTab] = useState('dive');
+
+    const updateDive = useApiCall(api.updateDive);
 
     if (dive.loading) {
         return <span>Loading...</span>;
@@ -32,7 +35,12 @@ const DiveDetails: React.FC = () => {
                 <DiveDetailsForm
                     dive={dive.data}
                     onUpdate={async (data): Promise<void> => {
-                        console.log(data);
+                        const newDive = await updateDive(dive.data.dive_id, data);
+                        console.log(newDive);
+                        setDive({
+                            data: newDive,
+                            loading: false,
+                        });
                     }}
                 />
             </TabPanel>
@@ -42,6 +50,4 @@ const DiveDetails: React.FC = () => {
             </TabPanel>
         </>
     );
-};
-
-export default DiveDetails;
+}

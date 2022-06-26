@@ -25,6 +25,7 @@ const InnerForm: (args: {
 }) => {
     const [formError, setFormError] = useState<Error>();
     const { handleSubmit, setError } = useFormContext<T>();
+
     async function handleSubmitError(data: T): Promise<void> {
         try {
             await onSubmit(data);

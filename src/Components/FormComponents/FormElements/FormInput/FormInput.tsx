@@ -12,11 +12,14 @@ type FormInputProps = React.ComponentProps<typeof TextField> & {
     Input?: React.FC<any>;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     defaultValue?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    transformValue?: (val: any) => string;
 };
 
-const FormInput: React.FC<FormInputProps> = ({ Input, name, label, defaultValue, ...props }) => {
+const FormInput: React.FC<FormInputProps> = ({ Input, name, label, defaultValue, transformValue, ...props }) => {
     const ChildInput = Input ?? TextField;
     const submitContext = useContext(SubmitContext);
+    const transformer = transformValue ?? ((t): string => t);
 
     return (
         <Controller
@@ -36,7 +39,7 @@ const FormInput: React.FC<FormInputProps> = ({ Input, name, label, defaultValue,
                     onValueChange={(value?: unknown): void => {
                         field.onChange(value);
                     }}
-                    value={field.value ?? ''}
+                    value={transformer(field.value ?? '')}
                     label={label}
                     name={name}
                     {...props}
