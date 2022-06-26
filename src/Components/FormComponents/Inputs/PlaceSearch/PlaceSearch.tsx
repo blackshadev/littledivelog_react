@@ -64,7 +64,15 @@ const PlaceSearch: React.FC<PlaceAutoCompleteArgs> = ({ value, onValueChange, pl
                 openOnFocus
                 isOptionEqualToValue={(option, value): boolean => option.place_id === value.place_id}
                 getOptionLabel={(option: Place): string => {
-                    return option !== undefined ? `${option.name}` : '';
+                    if (option === undefined) {
+                        return '';
+                    }
+
+                    if (option.place_id === undefined) {
+                        return `Add '${option.name}'`;
+                    }
+
+                    return option.name;
                 }}
                 loading={loading}
                 onInputChange={(_, value): void => setPlaceInputValue(value)}
@@ -77,7 +85,7 @@ const PlaceSearch: React.FC<PlaceAutoCompleteArgs> = ({ value, onValueChange, pl
                     if (inputValue !== '' && !isExisting) {
                         filtered.push({
                             country_code: countryCode ?? '',
-                            name: `Add "${inputValue}"`,
+                            name: `${inputValue}`,
                         });
                     }
 
