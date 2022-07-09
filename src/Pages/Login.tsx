@@ -21,7 +21,7 @@ const Login: React.FC = () => {
             password: '',
         },
     });
-    const { dispatch } = useContext(AuthContext);
+    const [, dispatch] = useContext(AuthContext);
 
     async function doSubmit({ email, password }: FormType): Promise<void> {
         const login = await api.login({ email, password });

@@ -1,11 +1,17 @@
 import { Fab, styled } from '@mui/material';
 
+import navigationWidth from '../../Helpers/navigationWidth';
 import spacing from '../../Styling/Constants/spacing';
-import { navWidth } from '../Navigation/components';
+import { transition } from '../Navigation/components';
 
-export const StyledFab = styled(Fab)`
+type FabProps = { menuIsCollapsed: boolean };
+
+export const StyledFab = styled(Fab, {
+    shouldForwardProp: (prop) => prop !== 'menuIsCollapsed',
+})<FabProps>`
     position: fixed;
     top: ${spacing.xxl};
-    left: ${navWidth};
+    left: ${(prop): number => navigationWidth(prop.menuIsCollapsed)}px;
+    transition: ${transition('left')};
     transform: translateX(-50%);
 `;

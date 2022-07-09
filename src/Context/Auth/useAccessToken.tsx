@@ -7,10 +7,10 @@ import { getAccessToken } from '../../Store/Auth/selectors';
 import { AuthContext } from './auth';
 
 const useAccessToken = (): { accessToken: string } => {
-    const { state } = useContext(AuthContext);
+    const [authState] = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const accessToken = getAccessToken(state);
+    const accessToken = getAccessToken(authState);
 
     if (!accessToken) {
         navigate(route(Route.Login), { replace: true });

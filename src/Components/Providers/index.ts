@@ -1,9 +1,11 @@
+import React from 'react';
+
+import { ApplicationContextProvider } from '../../Context/Application';
+import AuthProvider from '../../Context/Auth/auth';
 import combineComponents from '../../Helpers/CombineComponents';
-import Auth from './Auth';
 import Localization from './Localization';
 import MUITheme from './MUITheme';
-import StrictMode from './StrictMode';
 
-const Providers = combineComponents(StrictMode, Localization, Auth, MUITheme);
+const Providers = combineComponents(React.StrictMode, Localization, AuthProvider, MUITheme, ApplicationContextProvider);
 
 export default Providers;

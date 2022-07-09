@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 
+import navigationWidth from '../../Helpers/navigationWidth';
 import spacing from '../../Styling/Constants/spacing';
-import { navWidth } from '../Navigation/components';
+import { transition } from '../Navigation/components';
 
 export const Main = styled.div`
     padding: ${spacing.xs};
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<{ menuIsCollapsed: boolean }>`
     display: flex;
 
     ${Main} {
@@ -15,9 +16,10 @@ export const Container = styled.div`
 
         position: absolute;
         flex-grow: 1;
-        left: ${navWidth};
+        left: ${({ menuIsCollapsed }): number => navigationWidth(menuIsCollapsed)}px;
         padding: ${spacing.md} ${spacing.xxl};
         min-height: 100%;
+        transition: ${transition('left')};
         top: 0;
         right: 0;
     }

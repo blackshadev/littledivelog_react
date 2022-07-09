@@ -11,6 +11,7 @@ import Login from '../Pages/Login';
 import TagDetail from '../Pages/Tags/TagDetail';
 import TagDetailNew from '../Pages/Tags/TagDetailNew';
 import TagsOverview from '../Pages/Tags/TagsOverview';
+import { Dashboard } from '../Pages/User/Dashboard';
 import { Role } from '../Store/Auth/roles';
 
 type RouteProperties = {
@@ -31,10 +32,11 @@ export enum Route {
     Tags,
     TagDetail,
     TagDetailNew,
+    Profile,
 }
 
 const _allRoutes: { [key in Route]: RouteProperties } = {
-    [Route.Home]: { element: <Home />, path: '/', role: Role.Any },
+    [Route.Home]: { element: <Dashboard />, path: '/', role: Role.Any },
     [Route.Login]: { element: <Login />, path: '/login', role: Role.Guest },
     [Route.Dives]: { element: <DiveOverview />, path: '/dives', role: Role.User },
     [Route.DiveDetail]: { element: <DiveDetails />, path: '/dives/:diveId', role: Role.User },
@@ -45,6 +47,7 @@ const _allRoutes: { [key in Route]: RouteProperties } = {
     [Route.Tags]: { element: <TagsOverview />, path: '/tag', role: Role.User },
     [Route.TagDetailNew]: { element: <TagDetailNew />, path: '/tag/new', role: Role.User },
     [Route.TagDetail]: { element: <TagDetail />, path: '/tag/:tagId', role: Role.User },
+    [Route.Profile]: { element: <Home />, path: '/profile', role: Role.User },
 };
 
 export function getRouteProperties(route: Route): RouteProperties {

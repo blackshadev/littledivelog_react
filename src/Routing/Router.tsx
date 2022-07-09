@@ -9,7 +9,7 @@ import { getRole } from '../Store/Auth/selectors';
 import { allRoutes, getDefaultRoute } from './Routes';
 
 const Router: React.FC = () => {
-    const { state } = useContext(AuthContext);
+    const [state] = useContext(AuthContext);
     const role = getRole(state);
 
     return (

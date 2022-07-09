@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer, useState } from 'react';
 
-import * as actions from '../../Store/Auth/actions';
 import { authReducer } from '../../Store/Auth/reducer';
 import { initialState } from '../../Store/Auth/state';
 import createReducerContext from '../../Store/createReducerContext';
@@ -38,7 +37,7 @@ const AuthProvider: React.FC<{ children?: React.ReactNode | undefined }> = ({ ch
         localStorage.setItem('auth', JSON.stringify(state));
     }, [state, loaded]);
 
-    return <AuthContext.Provider value={{ dispatch, state }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={[state, dispatch]}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

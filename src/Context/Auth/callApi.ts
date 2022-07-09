@@ -66,7 +66,7 @@ export function useApiState<T extends unknown[], R>(
 export function useApiCall<T extends unknown[], R>(
     fn: (token: string, ...args: T) => Promise<R>,
 ): (...args: T) => Promise<R> {
-    const { state, dispatch } = useContext(AuthContext);
+    const [state, dispatch] = useContext(AuthContext);
 
     const authenticate = useCallback(async (refreshToken: string): Promise<string> => {
         let token: string;

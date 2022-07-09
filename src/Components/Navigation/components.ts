@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 
+import navigationWidth from '../../Helpers/navigationWidth';
 import colors from '../../Styling/Constants/colors';
 import misc from '../../Styling/Constants/misc';
 import spacing from '../../Styling/Constants/spacing';
 
-export const navWidth = '150px';
+export function transition(property: string): string {
+    return `${property} ease-out 0.5s`;
+}
 
-export const Nav = styled.nav`
+export const Nav = styled.nav<{ isCollapsed: boolean }>`
     position: fixed;
     height: 100%;
     background-color: ${colors.accent};
-    width: ${navWidth};
+    width: ${({ isCollapsed }): number => navigationWidth(isCollapsed)}px;
+    transition: ${transition('width')};
+    overflow: hidden;
 
     ul {
         list-style: none;
@@ -19,7 +24,11 @@ export const Nav = styled.nav`
 `;
 
 export const NavItem = styled.li`
-    a {
+    a,
+    button {
+        cursor: pointer;
+        background: transparent;
+        border: 0;
         display: flex;
         padding: 0.5rem 1rem;
         text-decoration: none;
@@ -32,6 +41,10 @@ export const NavItem = styled.li`
             text-decoration: underline;
         }
 
+        &.active {
+            background-color: ${colors.highlight};
+        }
+
         svg {
             vertical-align: middle;
             display: inline-block;
@@ -39,6 +52,18 @@ export const NavItem = styled.li`
             width: 24px;
             margin-right: ${spacing.md};
         }
+    }
+
+    span {
+        font-size: 1rem;
+    }
+`;
+
+export const NavToggler = styled(NavItem)<{ menuIsCollapsed: boolean }>`
+    svg {
+        color: white;
+        transition: ${transition('transform')};
+        transform: ${({ menuIsCollapsed }): string => (menuIsCollapsed ? `rotate(180deg)` : '0')};
     }
 `;
 

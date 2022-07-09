@@ -1,20 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 
-import { Dashboard, Group, Label, Login, Logout, Water } from '@mui/icons-material';
+import { Dashboard, Group, Label, Login, Logout, Person, Water } from '@mui/icons-material';
 
+import * as api from '../../api/auth';
+import ApplicationContext from '../../Context/Application';
+import { getMenuIsCollapsed } from '../../Context/Application/selectors';
 import { AuthContext } from '../../Context/Auth/auth';
 import Route, { route } from '../../Routing/Routes';
+import { logOut } from '../../Store/Auth/actions';
 import { isLoggedIn as isLoggedInSelector } from '../../Store/Auth/selectors';
 import { Nav } from './components';
 import NavItem from './NavItem';
 import NavSection from './NavSection';
+import NavToggler from './NavToggler';
 
 const Navigation: React.FC = () => {
-    const { state } = useContext(AuthContext);
-    const isLoggedIn = isLoggedInSelector(state);
+    const [authState, dispatch] = useContext(AuthContext);
+    const [applicationState] = useContext(ApplicationContext);
+
+    const isLoggedIn = isLoggedInSelector(authState);
+
+    const logout = useCallback(async () => {
+        if (!authState.refreshToken) {
+            return;
+        }
+
+        await api.logout(authState.refreshToken);
+        dispatch(logOut);
+    }, [authState.refreshToken, dispatch]);
 
     return (
-        <Nav>
+        <Nav isCollapsed={getMenuIsCollapsed(applicationState)}>
             {!isLoggedIn && (
                 <NavSection>
                     <NavItem icon={<Login />} to={route(Route.Login)}>
@@ -25,6 +41,10 @@ const Navigation: React.FC = () => {
 
             {isLoggedIn && (
                 <>
+                    <NavSection>
+                        <NavToggler />
+                    </NavSection>
+
                     <NavSection>
                         <NavItem icon={<Dashboard />} to="/">
                             Dashboard
@@ -43,7 +63,15 @@ const Navigation: React.FC = () => {
                         </NavItem>
                     </NavSection>
                     <NavSection>
-                        <NavItem icon={<Logout />} to="/logout">
+                        <NavItem icon={<Person />} to="/profile">
+                            Profile
+                        </NavItem>
+                        <NavItem
+                            icon={<Logout />}
+                            onClick={(): void => {
+                                logout();
+                            }}
+                        >
                             Logout
                         </NavItem>
                     </NavSection>

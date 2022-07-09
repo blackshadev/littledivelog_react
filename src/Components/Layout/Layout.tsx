@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
+import ApplicationContext from '../../Context/Application';
+import { getMenuIsCollapsed } from '../../Context/Application/selectors';
 import Navigation from '../Navigation';
 import { Container, Main } from './components';
 
-const Layout: React.FC = () => (
-    <Container>
-        <Navigation />
-        <Main>
-            <Outlet />
-        </Main>
-    </Container>
-);
-export default Layout;
+export default function Layout(): React.ReactElement {
+    const [appState] = useContext(ApplicationContext);
+
+    return (
+        <Container menuIsCollapsed={getMenuIsCollapsed(appState)}>
+            <Navigation />
+            <Main>
+                <Outlet />
+            </Main>
+        </Container>
+    );
+}

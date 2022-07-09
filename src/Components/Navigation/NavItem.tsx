@@ -1,23 +1,39 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { NavItem as StyledNavItem } from './components';
 
 type Props = {
-    to: string;
     icon: React.ReactElement;
+    onClick?: React.MouseEventHandler;
+    to?: string;
 };
 
-const NavItem: React.FC<React.PropsWithChildren<Props>> = ({ to, icon, children }) => {
-    return (
-        <StyledNavItem>
-            <Link to={to}>
-                {icon}
-                <span>{children}</span>
-            </Link>
-        </StyledNavItem>
-    );
+const NavItem: React.FC<React.PropsWithChildren<Props>> = ({ to = undefined, onClick = undefined, icon, children }) => {
+    if (typeof to === 'string') {
+        return (
+            <StyledNavItem>
+                <NavLink to={to}>
+                    {icon}
+                    <span>{children}</span>
+                </NavLink>
+            </StyledNavItem>
+        );
+    }
+
+    if (typeof onClick === 'function') {
+        return (
+            <StyledNavItem>
+                <button onClick={onClick}>
+                    {icon}
+                    <span>{children}</span>
+                </button>
+            </StyledNavItem>
+        );
+    }
+
+    return <></>;
 };
 
 export default NavItem;
