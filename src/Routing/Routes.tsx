@@ -6,12 +6,13 @@ import BuddyOverview from '../Pages/Buddies/BuddyOverview';
 import DiveDetails from '../Pages/Dives/DiveDetails';
 import DiveDetailsNew from '../Pages/Dives/DiveDetailsNew';
 import DiveOverview from '../Pages/Dives/DiveOverview';
-import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import TagDetail from '../Pages/Tags/TagDetail';
 import TagDetailNew from '../Pages/Tags/TagDetailNew';
 import TagsOverview from '../Pages/Tags/TagsOverview';
+import { ChangePassword } from '../Pages/User/ChangePassword';
 import { Dashboard } from '../Pages/User/Dashboard';
+import Profile from '../Pages/User/Profile';
 import { Role } from '../Store/Auth/roles';
 
 type RouteProperties = {
@@ -33,6 +34,7 @@ export enum Route {
     TagDetail,
     TagDetailNew,
     Profile,
+    ChangePassword,
 }
 
 const _allRoutes: { [key in Route]: RouteProperties } = {
@@ -47,7 +49,8 @@ const _allRoutes: { [key in Route]: RouteProperties } = {
     [Route.Tags]: { element: <TagsOverview />, path: '/tag', role: Role.User },
     [Route.TagDetailNew]: { element: <TagDetailNew />, path: '/tag/new', role: Role.User },
     [Route.TagDetail]: { element: <TagDetail />, path: '/tag/:tagId', role: Role.User },
-    [Route.Profile]: { element: <Home />, path: '/profile', role: Role.User },
+    [Route.Profile]: { element: <Profile />, path: '/profile', role: Role.User },
+    [Route.ChangePassword]: { element: <ChangePassword />, path: '/profile/change-password', role: Role.User },
 };
 
 export function getRouteProperties(route: Route): RouteProperties {

@@ -63,7 +63,7 @@ const Navigation: React.FC = () => {
                         </NavItem>
                     </NavSection>
                     <NavSection>
-                        <NavItem icon={<Person />} to="/profile">
+                        <NavItem icon={<Person />} to={route(Route.Profile)}>
                             Profile
                         </NavItem>
                         <NavItem

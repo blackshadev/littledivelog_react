@@ -48,7 +48,6 @@ const ColorPicker: React.FC<CustomProps & React.ComponentProps<typeof TextField>
                 open={open}
                 anchorEl={element.current}
                 onClose={(): void => {
-                    console.log('here');
                     setOpen(false);
                 }}
                 anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}

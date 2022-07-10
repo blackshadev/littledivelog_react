@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { Controller } from 'react-hook-form';
+import { Controller, UseControllerProps } from 'react-hook-form';
 
 import SubmitContext from '../../Form/SubmitContext';
 import TextField from '../../Inputs/TextField';
@@ -14,9 +14,19 @@ type FormInputProps = React.ComponentProps<typeof TextField> & {
     defaultValue?: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     transformValue?: (val: any) => string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    validationRules?: UseControllerProps<any, any>['rules'];
 };
 
-const FormInput: React.FC<FormInputProps> = ({ Input, name, label, defaultValue, transformValue, ...props }) => {
+const FormInput: React.FC<FormInputProps> = ({
+    Input,
+    name,
+    label,
+    defaultValue,
+    transformValue,
+    validationRules,
+    ...props
+}) => {
     const ChildInput = Input ?? TextField;
     const submitContext = useContext(SubmitContext);
     const transformer = transformValue ?? ((t): string => t);
@@ -24,6 +34,7 @@ const FormInput: React.FC<FormInputProps> = ({ Input, name, label, defaultValue,
     return (
         <Controller
             name={name}
+            rules={validationRules}
             defaultValue={defaultValue}
             render={({ field }): React.ReactElement => (
                 <ChildInput

@@ -7,3 +7,8 @@ export type Profile = {
     tag_count: number;
     computer_count: number;
 };
+
+export type UpdateProfileData = {
+    name: string;
+    email: string;
+};
