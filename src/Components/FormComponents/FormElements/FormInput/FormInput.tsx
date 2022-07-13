@@ -18,7 +18,7 @@ type FormInputProps = React.ComponentProps<typeof TextField> & {
     validationRules?: UseControllerProps<any, any>['rules'];
 };
 
-const FormInput: React.FC<FormInputProps> = ({
+export default function FormInput({
     Input,
     name,
     label,
@@ -26,7 +26,7 @@ const FormInput: React.FC<FormInputProps> = ({
     transformValue,
     validationRules,
     ...props
-}) => {
+}: FormInputProps): React.ReactElement {
     const ChildInput = Input ?? TextField;
     const submitContext = useContext(SubmitContext);
     const transformer = transformValue ?? ((t): string => t);
@@ -58,7 +58,4 @@ const FormInput: React.FC<FormInputProps> = ({
             )}
         />
     );
-};
-FormInput.displayName = 'FormInput';
-
-export default FormInput;
+}

@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 
-import { Dashboard, Group, Label, Login, Logout, Person, Water } from '@mui/icons-material';
+import { Computer, Dashboard, Group, Label, Login, Logout, Person, Water } from '@mui/icons-material';
 
 import * as api from '../../api/auth';
 import ApplicationContext from '../../Context/Application';
@@ -50,6 +50,7 @@ const Navigation: React.FC = () => {
                             Dashboard
                         </NavItem>
                     </NavSection>
+
                     <NavSection>
                         <NavItem icon={<Water />} to={route(Route.Dives)}>
                             Dives
@@ -57,11 +58,14 @@ const Navigation: React.FC = () => {
                         <NavItem icon={<Group />} to={route(Route.Buddies)}>
                             Buddies
                         </NavItem>
-
                         <NavItem icon={<Label />} to={route(Route.Tags)}>
                             Tags
                         </NavItem>
+                        <NavItem icon={<Computer />} to={route(Route.Computers)}>
+                            Computers
+                        </NavItem>
                     </NavSection>
+
                     <NavSection>
                         <NavItem icon={<Person />} to={route(Route.Profile)}>
                             Profile

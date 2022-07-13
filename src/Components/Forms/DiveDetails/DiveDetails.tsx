@@ -31,10 +31,10 @@ type FormType = {
     tags: DiveTag[];
 };
 
-const Details: React.FC<{ dive: Optional<DiveDetail>; onUpdate: (data: FormType) => Promise<void> }> = ({
-    dive,
-    onUpdate,
-}) => {
+type Props = { dive: Optional<DiveDetail>; onUpdate: (data: FormType) => Promise<void> };
+
+export default function Details({ dive, onUpdate }: Props): React.ReactElement {
+    console.log(dive);
     const form = useFormWithValue<FormType>(dive);
 
     return (
@@ -43,6 +43,14 @@ const Details: React.FC<{ dive: Optional<DiveDetail>; onUpdate: (data: FormType)
                 <FormInput name="date" placeholder="2021-02-26 11:38:00" label="Date" Input={DateTimePickerInput} />
                 <FormInput name="divetime" placeholder="01:34:12" label="Duration" Input={DurationInput} />
                 <FormInput name="max_depth" placeholder="8.4" label="Max depth" Input={DepthInput} />
+                <FormInput
+                    name="computer"
+                    label="Computer"
+                    Input={StaticText}
+                    transformValue={(computer: { name: string; vendor: string }): string =>
+                        `${computer.vendor} ${computer.name}`
+                    }
+                />
                 <FormInput name="place" label="Divespot" placeholder="Zeeland brug" Input={PlaceSearch} />
                 <FormInput
                     name="buddies"
@@ -64,6 +72,4 @@ const Details: React.FC<{ dive: Optional<DiveDetail>; onUpdate: (data: FormType)
             </VerticalLayout>
         </Form>
     );
-};
-
-export default Details;
+}

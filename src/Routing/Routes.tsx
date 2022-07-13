@@ -3,6 +3,7 @@ import React from 'react';
 import BuddyDetail from '../Pages/Buddies/BuddyDetail';
 import BuddyDetailNew from '../Pages/Buddies/BuddyDetailNew';
 import BuddyOverview from '../Pages/Buddies/BuddyOverview';
+import ComputerOverview from '../Pages/Computers/ComputerOverview';
 import DiveDetails from '../Pages/Dives/DiveDetails';
 import DiveDetailsNew from '../Pages/Dives/DiveDetailsNew';
 import DiveOverview from '../Pages/Dives/DiveOverview';
@@ -35,6 +36,7 @@ export enum Route {
     TagDetailNew,
     Profile,
     ChangePassword,
+    Computers,
 }
 
 const _allRoutes: { [key in Route]: RouteProperties } = {
@@ -43,12 +45,13 @@ const _allRoutes: { [key in Route]: RouteProperties } = {
     [Route.Dives]: { element: <DiveOverview />, path: '/dives', role: Role.User },
     [Route.DiveDetail]: { element: <DiveDetails />, path: '/dives/:diveId', role: Role.User },
     [Route.DiveDetailNew]: { element: <DiveDetailsNew />, path: '/dives/new', role: Role.User },
-    [Route.Buddies]: { element: <BuddyOverview />, path: '/buddy/', role: Role.User },
-    [Route.BuddyDetail]: { element: <BuddyDetail />, path: '/buddy/:buddyId', role: Role.User },
+    [Route.Buddies]: { element: <BuddyOverview />, path: '/buddies/', role: Role.User },
+    [Route.BuddyDetail]: { element: <BuddyDetail />, path: '/buddies/:buddyId', role: Role.User },
     [Route.BuddyDetailNew]: { element: <BuddyDetailNew />, path: '/buddy/new', role: Role.User },
-    [Route.Tags]: { element: <TagsOverview />, path: '/tag', role: Role.User },
-    [Route.TagDetailNew]: { element: <TagDetailNew />, path: '/tag/new', role: Role.User },
-    [Route.TagDetail]: { element: <TagDetail />, path: '/tag/:tagId', role: Role.User },
+    [Route.Tags]: { element: <TagsOverview />, path: '/tags', role: Role.User },
+    [Route.TagDetailNew]: { element: <TagDetailNew />, path: '/tags/new', role: Role.User },
+    [Route.TagDetail]: { element: <TagDetail />, path: '/tags/:tagId', role: Role.User },
+    [Route.Computers]: { element: <ComputerOverview />, path: '/computers', role: Role.User },
     [Route.Profile]: { element: <Profile />, path: '/profile', role: Role.User },
     [Route.ChangePassword]: { element: <ChangePassword />, path: '/profile/change-password', role: Role.User },
 };
