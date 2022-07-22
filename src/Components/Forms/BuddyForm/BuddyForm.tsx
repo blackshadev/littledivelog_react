@@ -25,7 +25,7 @@ const BuddyForm: React.FC<{ buddy: Optional<BuddyDetail>; onSubmit: (data: FormT
     const form = useFormWithValue<FormType>(buddy);
 
     return (
-        <Form submitOnBlur={true} onSubmit={onSubmit} form={form}>
+        <Form onSubmit={onSubmit} form={form}>
             <VerticalLayout>
                 <FormInput name="text" placeholder="John Doe" label="Name" Input={TextField} />
                 <FormInput name="color" placeholder="#123456" label="Color" Input={ColorPicker} />

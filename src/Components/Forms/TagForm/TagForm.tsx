@@ -24,7 +24,7 @@ const TagForm: React.FC<{ tag: Optional<TagSummary>; onSubmit: (data: FormType) 
     const form = useFormWithValue<FormType>(tag);
 
     return (
-        <Form submitOnBlur={true} onSubmit={onSubmit} form={form}>
+        <Form onSubmit={onSubmit} form={form}>
             <VerticalLayout>
                 <FormInput name="text" placeholder="John Doe" label="Name" Input={TextField} />
                 <FormInput name="color" placeholder="#123456" label="Color" Input={ColorPicker} />
