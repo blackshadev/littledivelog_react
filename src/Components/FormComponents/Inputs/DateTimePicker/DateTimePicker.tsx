@@ -9,7 +9,7 @@ type FormInputProps = React.ComponentProps<typeof TextField> & {
     label: string;
     placeholder: string;
     value: unknown;
-    onValueChange?: (value: unknown) => void;
+    onValueChange(value: unknown): void;
 };
 
 const DateTimePicker: React.FC<FormInputProps> = ({ name, label, placeholder, onValueChange, value, ...props }) => {

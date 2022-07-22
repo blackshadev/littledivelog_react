@@ -33,7 +33,7 @@ const TankInput: React.FC<Props> = ({ name, label, value, onValueChange, onDelet
         <TankInputContainer>
             <TankLabel>
                 {label}
-                <Button onClick={onDelete}>
+                <Button variant="text" onClick={onDelete}>
                     <DeleteIcon />
                 </Button>
             </TankLabel>

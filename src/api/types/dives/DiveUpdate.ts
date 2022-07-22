@@ -5,6 +5,7 @@ import { DiveTag } from './DiveTag';
 export type DiveUpdate = {
     divetime: number;
     max_depth: number;
+    computer_id?: number;
     date: Date;
     tags: DiveTag[];
     buddies: DiveBuddy[];

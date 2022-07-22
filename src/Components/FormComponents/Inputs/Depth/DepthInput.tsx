@@ -5,7 +5,8 @@ import TextField from '../TextField';
 
 type CustomInputProps<T> = {
     value: T;
-    onValueChange?: (value: T) => void;
+    label: string;
+    onValueChange(value: T): void;
     onBlur?: (event: React.FocusEvent, value?: T) => void;
 };
 

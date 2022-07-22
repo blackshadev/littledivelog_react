@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import formatDivetime, {
-    parseDivetime,
-} from '../../../../Helpers/Formatters/formatDiveTime';
+import formatDivetime, { parseDivetime } from '../../../../Helpers/Formatters/formatDiveTime';
 import TextField from '../TextField';
 
 type CustomInputProps<T> = {
     value: T;
+    label: string;
     onBlur?: (event: React.FocusEvent<HTMLInputElement>, value: T) => void;
-    onValueChange?: (value: T) => void;
+    onValueChange(value: T): void;
 };
 
 const DurationInput: React.FC<

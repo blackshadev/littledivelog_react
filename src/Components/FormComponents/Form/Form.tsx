@@ -58,12 +58,16 @@ const InnerForm: (args: {
     );
 };
 
-const Form: <T extends FieldValues>(args: {
-    children: React.ReactNode;
+export default function Form<T extends FieldValues>({
+    children,
+    submitOnBlur,
+    onSubmit,
+    form,
+}: React.PropsWithChildren<{
     submitOnBlur?: boolean;
     onSubmit: AsyncFormHandler<T>;
     form: UseFormReturn<T>;
-}) => ReturnType<FC> = ({ children, submitOnBlur, onSubmit, form }) => {
+}>): ReturnType<FC> {
     return (
         <FormProvider {...form}>
             <InnerForm submitOnBlur={submitOnBlur ?? false} onSubmit={onSubmit}>
@@ -71,6 +75,4 @@ const Form: <T extends FieldValues>(args: {
             </InnerForm>
         </FormProvider>
     );
-};
-
-export default Form;
+}

@@ -13,6 +13,7 @@ import Form from '../../FormComponents/Form';
 import FormInput from '../../FormComponents/FormElements/FormInput';
 import VerticalLayout from '../../FormComponents/FormLayout/VerticalLayout';
 import BuddySearch from '../../FormComponents/Inputs/BuddiesInput';
+import ComputerSelectField from '../../FormComponents/Inputs/ComputerSelectField';
 import DateTimePickerInput from '../../FormComponents/Inputs/DateTimePicker';
 import DepthInput from '../../FormComponents/Inputs/Depth';
 import DurationInput from '../../FormComponents/Inputs/DurationInput';
@@ -24,6 +25,7 @@ import TanksInput from '../../FormComponents/Inputs/TankInput';
 type FormType = {
     divetime: number;
     max_depth: number;
+    computer?: { computer_id?: number; vendor: string; name: string };
     date: Date;
     place: null | Place;
     tanks: DiveTank[];
@@ -34,7 +36,6 @@ type FormType = {
 type Props = { dive: Optional<DiveDetail>; onUpdate: (data: FormType) => Promise<void> };
 
 export default function Details({ dive, onUpdate }: Props): React.ReactElement {
-    console.log(dive);
     const form = useFormWithValue<FormType>(dive);
 
     return (
@@ -46,10 +47,9 @@ export default function Details({ dive, onUpdate }: Props): React.ReactElement {
                 <FormInput
                     name="computer"
                     label="Computer"
-                    Input={StaticText}
-                    transformValue={(computer: { name: string; vendor: string }): string =>
-                        `${computer.vendor} ${computer.name}`
-                    }
+                    isImported={dive.is_imported ?? false}
+                    placeholder="Computer"
+                    Input={ComputerSelectField}
                 />
                 <FormInput name="place" label="Divespot" placeholder="Zeeland brug" Input={PlaceSearch} />
                 <FormInput
@@ -60,7 +60,7 @@ export default function Details({ dive, onUpdate }: Props): React.ReactElement {
                     Input={BuddySearch}
                 />
                 <FormInput name="tags" label="Tags" placeholder="Deco" defaultValue={[]} Input={TagsInput} />
-                <FormInput name="tanks" label="Tank" placeholder="Tank" defaultValue={[]} Input={TanksInput} />
+                <FormInput name="tanks" label="Tank" defaultValue={[]} Input={TanksInput} />
                 <FormInput
                     name="updated"
                     label="Last Updated"

@@ -14,6 +14,7 @@ import TagsOverview from '../Pages/Tags/TagsOverview';
 import { ChangePassword } from '../Pages/User/ChangePassword';
 import { Dashboard } from '../Pages/User/Dashboard';
 import Profile from '../Pages/User/Profile';
+import Register from '../Pages/User/Register';
 import { Role } from '../Store/Auth/roles';
 
 type RouteProperties = {
@@ -34,9 +35,10 @@ export enum Route {
     Tags,
     TagDetail,
     TagDetailNew,
+    Computers,
     Profile,
     ChangePassword,
-    Computers,
+    Register,
 }
 
 const _allRoutes: { [key in Route]: RouteProperties } = {
@@ -54,6 +56,7 @@ const _allRoutes: { [key in Route]: RouteProperties } = {
     [Route.Computers]: { element: <ComputerOverview />, path: '/computers', role: Role.User },
     [Route.Profile]: { element: <Profile />, path: '/profile', role: Role.User },
     [Route.ChangePassword]: { element: <ChangePassword />, path: '/profile/change-password', role: Role.User },
+    [Route.Register]: { element: <Register />, path: '/register', role: Role.Guest },
 };
 
 export function getRouteProperties(route: Route): RouteProperties {
