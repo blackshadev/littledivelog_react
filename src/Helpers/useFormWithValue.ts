@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import { DefaultValues, FieldValues, useForm as useReactHookForm, UseFormReturn } from 'react-hook-form';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function useFormWithValue<TData extends FieldValues, TContext = any>(
     data: DefaultValues<TData>,
 ): UseFormReturn<TData, TContext> {

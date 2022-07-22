@@ -7,7 +7,7 @@ on:
             - main
 
 jobs:
-    Test:
+    Tests:
         name: Tests
         runs-on: ubuntu-latest
         steps:
@@ -30,6 +30,8 @@ jobs:
               run: yarn build
 
     Deploy:
+        needs: Tests
+        if: github.ref == 'refs/heads/main'
         name: Deploy
         runs-on: ubuntu-latest
 
@@ -54,7 +56,7 @@ jobs:
               with:
                   context: .
                   push: true
-                  tags: blackshadev/littledivelogapp
+                  tags: blackshadev/littledivelogapp:latest
 
             - name: Update server image
               uses: satak/webrequest-action@v1.2.4

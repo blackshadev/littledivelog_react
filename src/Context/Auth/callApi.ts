@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Reducer, useCallback, useContext, useEffect, useReducer } from 'react';
 
 import { getAccessToken } from '../../api/auth';
