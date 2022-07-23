@@ -5,7 +5,7 @@ import colors from '../Constants/colors';
 const BodyStyle = createGlobalStyle`
     body {
         background: ${colors.background};
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: Arial, Helvetica, sans-serif !important;
         position: absolute;
         top: 0;
         left: 0;
