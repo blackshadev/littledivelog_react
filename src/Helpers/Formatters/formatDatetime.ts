@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 
-export default function formatDatetime(date?: Date): string {
+import { parseDiveDateTime } from '../parseDiveDateTime';
+
+export default function formatDatetime(date?: Date | string): string {
     if (!date) {
         return '';
     }
-    return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
-}
 
-export function parseDatetime(date: string): Date {
-    return dayjs(date, 'YYYY-MM-DD HH:mm:ss').toDate();
+    const normalizedDate = parseDiveDateTime(date);
+    return dayjs(normalizedDate).format('YYYY-MM-DD HH:mm:ss');
 }

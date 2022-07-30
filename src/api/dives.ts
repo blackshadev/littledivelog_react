@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import type { DiveDetail } from './types/dives/DiveDetail';
 import { DiveProfile } from './types/dives/DiveProfile';
+import { DiveSearchParameters } from './types/dives/DiveSearchParameters';
 import type { DiveSummary } from './types/dives/DiveSummary';
 import type { DiveUpdate } from './types/dives/DiveUpdate';
 import { withAuthorizationToken } from './auth';
@@ -57,6 +58,18 @@ export async function newDive(accessToken: string, dive: DiveUpdate): Promise<Di
         headers: {
             ...withAuthorizationToken(accessToken),
         },
+    });
+    const response = await handleServerError(promise);
+
+    return response.data;
+}
+
+export async function searchDives(accessToken: string, searchOptions: DiveSearchParameters): Promise<DiveSummary[]> {
+    const promise = axios.get<DiveSummary[]>(`${apiURL}/dives/_search`, {
+        headers: {
+            ...withAuthorizationToken(accessToken),
+        },
+        params: searchOptions,
     });
     const response = await handleServerError(promise);
 

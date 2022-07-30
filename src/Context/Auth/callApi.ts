@@ -6,7 +6,7 @@ import AuthenticationError from '../../api/errors/AuthenticationError';
 import { logOut, setAccessToken } from '../../Store/Auth/actions';
 import { AuthContext } from './auth';
 
-type ApiState<T> =
+export type ApiState<T> =
     | {
           data: undefined;
           loading: true;
