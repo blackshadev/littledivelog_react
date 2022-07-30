@@ -1,5 +1,6 @@
 import DiveSearch from './DiveSearch';
-import { SearchFilter, SearchFilters, SearchOptions } from './types';
+import { SearchOptions } from './searchOptions';
+import { SearchFilter, SearchFilters } from './types';
 
 export type { SearchFilter, SearchFilters };
 export { SearchOptions };

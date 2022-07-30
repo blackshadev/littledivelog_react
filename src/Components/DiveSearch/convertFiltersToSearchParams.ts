@@ -1,5 +1,6 @@
 import { DiveSearchParameters } from '../../api/types/dives/DiveSearchParameters';
-import { SearchFilters, SearchOptions } from './types';
+import { SearchOptions } from './searchOptions';
+import { SearchFilters } from './types';
 
 export default function convertFiltersToSearchParams(filters: SearchFilters): DiveSearchParameters {
     const params: DiveSearchParameters = {};

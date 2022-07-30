@@ -40,6 +40,7 @@ export default function DiveDetails(): React.ReactElement {
                     onUpdate={async (data): Promise<void> => {
                         const newDive = await updateDive(dive.data.dive_id, {
                             ...data,
+                            computer_id: data.computer?.computer_id,
                         });
                         setDive({
                             data: newDive,

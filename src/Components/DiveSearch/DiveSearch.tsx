@@ -3,32 +3,9 @@ import React, { useState } from 'react';
 import { Close, Search } from '@mui/icons-material';
 import { Button, InputAdornment } from '@mui/material';
 
-import {
-    Container,
-    RemoveSearchValueButton,
-    SearchInput,
-    SearchSelect,
-    SearchValueItem,
-    SearchValuesList,
-} from './components';
-import { SearchFilter, SearchFilters, SearchOptions } from './types';
-
-const searchOptionLabels: { [key in SearchOptions]: string } = {
-    [SearchOptions.Keyword]: 'With keyword',
-    [SearchOptions.After]: 'Date after',
-    [SearchOptions.Before]: 'Date before',
-    [SearchOptions.Buddy]: 'With buddy',
-    [SearchOptions.Place]: 'On place',
-    [SearchOptions.Tag]: 'With tag',
-};
-
-const searchOptions = [
-    SearchOptions.Keyword,
-    // { label: 'Tag', value: SearchOptions.Tag },
-    // { label: 'Buddy', value: SearchOptions.Buddy },
-    // { label: 'Before', value: SearchOptions.Before },
-    // { label: 'After', value: SearchOptions.After },
-];
+import { Container, RemoveSearchValueButton, SearchInput, SearchValueItem, SearchValuesList } from './components';
+import { searchOptionLabels, SearchOptions } from './searchOptions';
+import { SearchFilter, SearchFilters } from './types';
 
 type Props = {
     value?: SearchFilters;
@@ -36,7 +13,6 @@ type Props = {
 };
 
 export default function DiveSearch({ value: searchItems = [], onChange }: Props): React.ReactElement {
-    const [searchType, setSearchType] = useState<SearchOptions>(SearchOptions.Keyword);
     const [inputValue, setInputValue] = useState<string>('');
 
     function addItem(newType: SearchOptions, newValue: string): void {
@@ -57,7 +33,7 @@ export default function DiveSearch({ value: searchItems = [], onChange }: Props)
         <Container
             onSubmit={(e): void => {
                 e.preventDefault();
-                addItem(searchType, inputValue);
+                addItem(SearchOptions.Keyword, inputValue);
             }}
         >
             <SearchInput
@@ -68,26 +44,11 @@ export default function DiveSearch({ value: searchItems = [], onChange }: Props)
                     setInputValue(e.target.value);
                 }}
                 InputProps={{
-                    endAdornment: (
-                        <InputAdornment position="end">
+                    startAdornment: (
+                        <InputAdornment position="start">
                             <Button type="submit">
                                 <Search />
                             </Button>
-                        </InputAdornment>
-                    ),
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <SearchSelect
-                                variant="outlined"
-                                value={searchType}
-                                onChange={(e): void => setSearchType(e.target.value as SearchOptions)}
-                            >
-                                {searchOptions.map((opt) => (
-                                    <option key={opt} value={opt}>
-                                        {searchOptionLabels[opt]}
-                                    </option>
-                                ))}
-                            </SearchSelect>
                         </InputAdornment>
                     ),
                 }}
@@ -101,18 +62,6 @@ export default function DiveSearch({ value: searchItems = [], onChange }: Props)
                         </RemoveSearchValueButton>
                     </SearchValueItem>
                 ))}
-                {/* <SearchValueItem>
-                    With tag &quot;test&quot;
-                    <RemoveSearchValueButton>
-                        <Close fontSize="small" />
-                    </RemoveSearchValueButton>
-                </SearchValueItem>
-                <SearchValueItem>
-                    On place &quot;test&quot;
-                    <RemoveSearchValueButton>
-                        <Close fontSize="small" />
-                    </RemoveSearchValueButton>
-                </SearchValueItem> */}
             </SearchValuesList>
         </Container>
     );

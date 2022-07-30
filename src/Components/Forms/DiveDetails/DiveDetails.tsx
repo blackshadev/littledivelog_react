@@ -7,6 +7,7 @@ import { Place } from '../../../api/types/places/country';
 import { DiveTank } from '../../../api/types/tanks/DiveTank';
 import formatDatetime from '../../../Helpers/Formatters/formatDatetime';
 import { Optional } from '../../../Helpers/Optional';
+import { parseDiveDateTime } from '../../../Helpers/parseDiveDateTime';
 import useFormWithValue from '../../../Helpers/useFormWithValue';
 import SaveButton from '../../Buttons/SaveButton';
 import Form from '../../FormComponents/Form';
@@ -41,7 +42,13 @@ export default function Details({ dive, onUpdate }: Props): React.ReactElement {
     return (
         <Form onSubmit={onUpdate} form={form}>
             <VerticalLayout>
-                <FormInput name="date" placeholder="2021-02-26 11:38:00" label="Date" Input={DateTimePickerInput} />
+                <FormInput
+                    name="date"
+                    placeholder="2021-02-26 11:38:00"
+                    label="Date"
+                    transformValue={(val): string => parseDiveDateTime(val) ?? ''}
+                    Input={DateTimePickerInput}
+                />
                 <FormInput name="divetime" placeholder="01:34:12" label="Duration" Input={DurationInput} />
                 <FormInput name="max_depth" placeholder="8.4" label="Max depth" Input={DepthInput} />
                 <FormInput
