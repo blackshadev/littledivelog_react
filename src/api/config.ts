@@ -4,4 +4,6 @@ function isProd(): boolean {
     return process.env.NODE_ENV === 'production';
 }
 
+export const DOWNLOADER_REPO = `blackshadev/electron-dive-downloader`;
+
 export const apiURL = isProd() ? 'https://api.dive.littledev.nl/api' : 'http://api.littledivelog.local/api';

@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react';
 
-import { Computer, Dashboard, Group, Label, Login, Logout, Person, Water } from '@mui/icons-material';
+import { Computer, Dashboard, Download,Group, Label, Login, Logout, Person, Water } from '@mui/icons-material';
 
 import * as api from '../../api/auth';
 import ApplicationContext from '../../Context/Application';
@@ -67,6 +67,9 @@ const Navigation: React.FC = () => {
                     </NavSection>
 
                     <NavSection>
+                        <NavItem icon={<Download />} to={route(Route.Downloader)}>
+                            Downloader
+                        </NavItem>
                         <NavItem icon={<Person />} to={route(Route.Profile)}>
                             Profile
                         </NavItem>

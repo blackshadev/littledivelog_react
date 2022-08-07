@@ -7,6 +7,7 @@ import ComputerOverview from '../Pages/Computers/ComputerOverview';
 import DiveDetails from '../Pages/Dives/DiveDetails';
 import DiveDetailsNew from '../Pages/Dives/DiveDetailsNew';
 import DiveOverview from '../Pages/Dives/DiveOverview';
+import Downloader from '../Pages/Downloader';
 import Login from '../Pages/Login';
 import TagDetail from '../Pages/Tags/TagDetail';
 import TagDetailNew from '../Pages/Tags/TagDetailNew';
@@ -29,6 +30,7 @@ export enum Route {
     Dives,
     DiveDetail,
     DiveDetailNew,
+    Downloader,
     Buddies,
     BuddyDetail,
     BuddyDetailNew,
@@ -57,6 +59,7 @@ const _allRoutes: { [key in Route]: RouteProperties } = {
     [Route.Profile]: { element: <Profile />, path: '/profile', role: Role.User },
     [Route.ChangePassword]: { element: <ChangePassword />, path: '/profile/change-password', role: Role.User },
     [Route.Register]: { element: <Register />, path: '/register', role: Role.Guest },
+    [Route.Downloader]: { element: <Downloader />, path: '/downloader', role: Role.Any },
 };
 
 export function getRouteProperties(route: Route): RouteProperties {
