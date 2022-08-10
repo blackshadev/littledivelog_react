@@ -4,6 +4,7 @@ import colors from '../../Styling/Constants/colors';
 import fontSize from '../../Styling/Constants/fontSize';
 import misc from '../../Styling/Constants/misc';
 import spacing from '../../Styling/Constants/spacing';
+import fromSize from '../../Styling/Functions/fromSize';
 
 export const Header = styled.h1`
     margin-bottom: ${spacing.md};
@@ -43,4 +44,25 @@ export const PlatformLabel = styled.span`
 `;
 export const FileLabel = styled.span`
     word-break: break-all;
+`;
+
+export const Image = styled.img`
+    border: 1px solid ${colors.foreground};
+    border-radius: ${misc.roundedBorders};
+    box-shadow: ${misc.shadow};
+    overflow: hidden;
+`;
+
+export const Row = styled.div`
+    display: flex;
+    flex-direction: column-reverse;
+
+    ${fromSize.lg`
+        flex-direction: row;
+    `}
+`;
+
+export const Panel = styled.div`
+    margin-right: ${spacing.md};
+    margin-bottom: ${spacing.md};
 `;
