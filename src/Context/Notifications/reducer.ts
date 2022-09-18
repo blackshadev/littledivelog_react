@@ -8,6 +8,14 @@ export const appReducer = createReducer(initialState, (builder) =>
     builder
         .addCase(notify, (state, action) => {
             const message = { key: randomString(16), ...action.payload };
+
+            if (
+                action.payload.key !== undefined &&
+                state.messages.find((msg) => msg.key === action.payload.key) !== undefined
+            ) {
+                return state;
+            }
+
             return {
                 messages: [...state.messages, message],
             };
@@ -19,6 +27,7 @@ export const appReducer = createReducer(initialState, (builder) =>
             }
 
             return {
+                lastClosed: action.payload,
                 messages: [...state.messages.slice(0, idx), ...state.messages.slice(idx + 1)],
             };
         }),

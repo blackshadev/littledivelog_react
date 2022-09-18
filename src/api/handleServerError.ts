@@ -3,14 +3,17 @@ import axios from 'axios';
 
 import AuthenticationError from './errors/AuthenticationError';
 import { FieldsErrors } from './errors/FieldsError';
+import UserError from './errors/UserError';
 
-export default async function handleServerError<T>(
-    result: Promise<T>,
-): Promise<T> {
+export default async function handleServerError<T>(result: Promise<T>): Promise<T> {
     try {
         return await result;
     } catch (err) {
         if (axios.isAxiosError(err) && err.response) {
+            if (err.response.data?.code) {
+                throw new UserError(err.response.data.code, err.response.data?.message);
+            }
+
             if (err.response.status === 401) {
                 throw new AuthenticationError(err.response.data?.message);
             }

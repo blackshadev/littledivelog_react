@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import { FieldValues, FormProvider, Path, useFormContext, UseFormReturn } from 'react-hook-form';
 
 import { FieldsErrors } from '../../../api/errors/FieldsError';
-import FormErrors from '../FormErrors';
+import FormError from '../FormError';
 import { StyledForm } from './components';
 import { SubmitContextProvider } from './SubmitContext';
 
@@ -52,7 +52,8 @@ const InnerForm: (args: {
         <SubmitContextProvider submitOnBlur={submitOnBlur} onSubmit={submitHandler}>
             <StyledForm onSubmit={submitHandler}>
                 {children}
-                <FormErrors formError={formError} />
+
+                <FormError formError={formError} />
             </StyledForm>
         </SubmitContextProvider>
     );

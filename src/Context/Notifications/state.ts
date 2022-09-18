@@ -4,8 +4,10 @@ export type Message = INotification & { key: string };
 
 export type FlashMessagesContextType = {
     messages: Message[];
+    lastClosed?: Message;
 };
 
 export const initialState: FlashMessagesContextType = {
-    messages: [],
+    lastClosed: undefined,
+    messages: [] as Message[],
 };

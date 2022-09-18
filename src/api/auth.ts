@@ -51,6 +51,13 @@ export async function getAccessToken(refreshToken: string): Promise<string> {
     return response.data.access_token;
 }
 
+export async function resendEmailVerification(email: string): Promise<void> {
+    const promise = axios.post<{ email: string }>(`${apiURL}/auth/verify/resend`, {
+        email,
+    });
+    await handleServerError(promise);
+}
+
 export function withAuthorizationToken(token: string): {
     Authorization: string;
 } {

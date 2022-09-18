@@ -9,6 +9,7 @@ import DiveDetailsNew from '../Pages/Dives/DiveDetailsNew';
 import DiveOverview from '../Pages/Dives/DiveOverview';
 import Downloader from '../Pages/Downloader';
 import Login from '../Pages/Login';
+import ResendEmailVerification from '../Pages/ResendEmailVerification';
 import TagDetail from '../Pages/Tags/TagDetail';
 import TagDetailNew from '../Pages/Tags/TagDetailNew';
 import TagsOverview from '../Pages/Tags/TagsOverview';
@@ -27,6 +28,7 @@ type RouteProperties = {
 export enum Route {
     Home,
     Login,
+    ResendEmailVerification,
     Dives,
     DiveDetail,
     DiveDetailNew,
@@ -46,6 +48,11 @@ export enum Route {
 const _allRoutes: { [key in Route]: RouteProperties } = {
     [Route.Home]: { element: <Dashboard />, path: '/', role: Role.Any },
     [Route.Login]: { element: <Login />, path: '/login', role: Role.Guest },
+    [Route.ResendEmailVerification]: {
+        element: <ResendEmailVerification />,
+        path: '/verification/resend',
+        role: Role.Guest,
+    },
     [Route.Dives]: { element: <DiveOverview />, path: '/dives', role: Role.User },
     [Route.DiveDetail]: { element: <DiveDetails />, path: '/dives/:diveId', role: Role.User },
     [Route.DiveDetailNew]: { element: <DiveDetailsNew />, path: '/dives/new', role: Role.User },

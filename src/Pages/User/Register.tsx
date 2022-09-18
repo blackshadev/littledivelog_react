@@ -20,7 +20,11 @@ export default function Register(): React.ReactElement {
             });
         }
         await api.register(data);
-        flashMessage(Notification.success('Registration successful. You can now login.'));
+        flashMessage(
+            Notification.success(
+                'An email has been sent to the given email. With it you can finish the registration process.',
+            ),
+        );
         navigate(route(Route.Login));
     }
 

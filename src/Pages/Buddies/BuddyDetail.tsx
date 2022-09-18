@@ -33,7 +33,7 @@ const BuddyDetail: React.FC = () => {
                     loading: false,
                 });
 
-                notify(Notification.success('Buddy saved successfully').time());
+                notify(Notification.success('Buddy saved successfully').withTimeout());
             }}
         />
     );

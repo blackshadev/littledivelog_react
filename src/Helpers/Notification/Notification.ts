@@ -1,3 +1,5 @@
+import messages from './predefined-messages.json';
+
 export enum FlashMessageType {
     Success = 'success',
     Warning = 'warning',
@@ -7,6 +9,7 @@ export enum FlashMessageType {
 export interface INotification {
     type: FlashMessageType;
     message: string;
+    key?: string;
     timeout?: number;
 }
 
@@ -23,13 +26,20 @@ export default class Notification implements INotification {
         public readonly type: FlashMessageType,
         public readonly message: string,
         public readonly timeout?: number,
+        public readonly key?: string,
     ) {}
 
-    public time(timeout = 5000): Notification {
-        return new Notification(this.type, this.message, timeout);
+    public withTimeout(timeout = 5000): Notification {
+        return new Notification(this.type, this.message, timeout, this.key);
+    }
+
+    public withPredefinedMessage(key: string | keyof typeof messages): Notification {
+        const message = messages[key as keyof typeof messages] ?? key;
+
+        return new Notification(this.type, message, this.timeout, key);
     }
 
     public toJSON(): INotification {
-        return { message: this.message, type: this.type };
+        return { key: this.key, message: this.message, type: this.type };
     }
 }

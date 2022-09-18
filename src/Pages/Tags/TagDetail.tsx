@@ -31,7 +31,7 @@ const TagDetail: React.FC = () => {
                     data: newTagData,
                     loading: false,
                 });
-                notify(Notification.success('Tag saved successfully').time());
+                notify(Notification.success('Tag saved successfully').withTimeout());
             }}
         />
     );

@@ -46,7 +46,7 @@ export default function DiveDetails(): React.ReactElement {
                             data: newDive,
                             loading: false,
                         });
-                        notify(Notification.success('Dive saved successfully').time());
+                        notify(Notification.success('Dive saved successfully').withTimeout());
                     }}
                 />
             </TabPanel>

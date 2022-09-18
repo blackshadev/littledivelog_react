@@ -14,7 +14,7 @@ export function ChangePassword(): React.ReactElement {
         <ChangePasswordForm
             onUpdate={async (values): Promise<void> => {
                 await changePassword(values);
-                notify(Notification.success('Password changed successfully').time());
+                notify(Notification.success('Password changed successfully').withTimeout());
             }}
         />
     );

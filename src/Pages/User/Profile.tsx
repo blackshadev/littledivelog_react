@@ -26,7 +26,7 @@ export default function Profile(): React.ReactElement {
                 onUpdate={async (data): Promise<void> => {
                     const newProfile = await updateProfile(data);
                     setProfile({ data: newProfile, loading: false });
-                    notify(Notification.success('Profile saved successfully').time());
+                    notify(Notification.success('Profile saved successfully').withTimeout());
                 }}
             ></ProfileForm>
 
