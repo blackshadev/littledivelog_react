@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { createFilterOptions } from '@mui/base';
 import { Autocomplete, CircularProgress, TextField as MUITextField } from '@mui/material';
 import { get, useFormState } from 'react-hook-form';
 
@@ -28,7 +27,6 @@ const PlaceSearch: React.FC<PlaceAutoCompleteArgs> = ({ value, onValueChange, pl
     const { errors } = useFormState();
     const error = get(errors, name)?.message as string | undefined;
 
-    const filter = createFilterOptions<Place>();
     const [countryCode, setCountryCode] = React.useState<string | null>(value?.country_code ?? null);
     const [placeInputValue, setPlaceInputValue] = React.useState(value?.name);
     const [options, setOptions] = React.useState<readonly Place[]>([]);
@@ -77,19 +75,20 @@ const PlaceSearch: React.FC<PlaceAutoCompleteArgs> = ({ value, onValueChange, pl
                 loading={loading}
                 onInputChange={(_, value): void => setPlaceInputValue(value)}
                 filterOptions={(options, params): Place[] => {
-                    const filtered = filter(options, params);
-
                     const { inputValue } = params;
                     // Suggest the creation of a new value
                     const isExisting = options.some((option) => inputValue === option.name);
-                    if (inputValue !== '' && !isExisting) {
-                        filtered.push({
-                            country_code: countryCode ?? '',
-                            name: `${inputValue}`,
-                        });
+                    if (inputValue !== '' && isExisting) {
+                        return options;
                     }
 
-                    return filtered;
+                    return [
+                        {
+                            country_code: countryCode ?? '',
+                            name: `${inputValue}`,
+                        },
+                        ...options,
+                    ];
                 }}
                 placeholder={placeholder}
                 onChange={(_, value): void => {
