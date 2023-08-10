@@ -1,5 +1,6 @@
 {
     // based on  https://gitlab.com/FuturePortal/RickvanderStaaij/-/blob/master/.eslintrc.json
+	"root": true,
     "parser": "@typescript-eslint/parser",
     "extends": [
         "plugin:react/recommended",
@@ -11,7 +12,6 @@
     "plugins": [
         "simple-import-sort",
         "sort-keys-fix",
-        "react",
         "@typescript-eslint"
     ],
     "parserOptions": {

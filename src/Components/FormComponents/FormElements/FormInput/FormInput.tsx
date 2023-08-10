@@ -5,7 +5,7 @@ import { Controller, UseControllerProps } from 'react-hook-form';
 import SubmitContext from '../../Form/SubmitContext';
 import TextField from '../../Inputs/TextField';
 
-type FormInputProps<TProp extends object> = Omit<TProp, 'onValueChange' | 'label' | 'value'> & {
+type FormInputProps<TProp> = Omit<TProp, 'onValueChange' | 'label' | 'value' | 'onBlur'> & {
     name: string;
     label: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,7 +18,7 @@ type FormInputProps<TProp extends object> = Omit<TProp, 'onValueChange' | 'label
     validationRules?: UseControllerProps<any, any>['rules'];
 } & React.ComponentProps<typeof TextField>;
 
-export default function FormInput<TProp extends object>({
+export default function FormInput<TProp>({
     Input,
     name,
     label,
@@ -27,7 +27,7 @@ export default function FormInput<TProp extends object>({
     validationRules,
     ...props
 }: FormInputProps<TProp>): React.ReactElement {
-    const ChildInput = Input ?? TextField;
+    const ChildInput = (Input ?? TextField) as React.FC<unknown>;
     const submitContext = useContext(SubmitContext);
     const transformer = transformValue ?? ((t): string => t);
 
