@@ -9,11 +9,11 @@ export function transition(property: string): string {
     return `${property} ease-out 0.5s`;
 }
 
-export const Nav = styled.nav<{ isCollapsed: boolean }>`
+export const Nav = styled.nav<{ $isCollapsed: boolean }>`
     position: fixed;
     height: 100%;
     background-color: ${colors.accent};
-    width: ${({ isCollapsed }): number => navigationWidth(isCollapsed)}px;
+    width: ${({ $isCollapsed }): number => navigationWidth($isCollapsed)}px;
     transition: ${transition('width')};
     overflow: hidden;
 
@@ -59,11 +59,11 @@ export const NavItem = styled.li`
     }
 `;
 
-export const NavToggler = styled(NavItem)<{ menuIsCollapsed: boolean }>`
+export const NavToggler = styled(NavItem)<{ $menuIsCollapsed: boolean }>`
     svg {
         color: white;
         transition: ${transition('transform')};
-        transform: ${({ menuIsCollapsed }): string => (menuIsCollapsed ? `rotate(180deg)` : '0')};
+        transform: ${({ $menuIsCollapsed }): string => ($menuIsCollapsed ? `rotate(180deg)` : '0')};
     }
 `;
 

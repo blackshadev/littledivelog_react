@@ -8,7 +8,7 @@ export const Main = styled.div`
     padding: ${spacing.xs};
 `;
 
-export const Container = styled.div<{ menuIsCollapsed: boolean }>`
+export const Container = styled.div<{ $menuIsCollapsed: boolean }>`
     display: flex;
 
     ${Main} {
@@ -16,7 +16,7 @@ export const Container = styled.div<{ menuIsCollapsed: boolean }>`
 
         position: absolute;
         flex-grow: 1;
-        left: ${({ menuIsCollapsed }): number => navigationWidth(menuIsCollapsed)}px;
+        left: ${({ $menuIsCollapsed }): number => navigationWidth($menuIsCollapsed)}px;
         padding: ${spacing.md} ${spacing.xxl};
         min-height: 100%;
         transition: ${transition('left')};

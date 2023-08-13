@@ -11,7 +11,7 @@ export default function NavToggler(): React.ReactElement {
     const [applicationState, dispatch] = useContext(ApplicationContext);
 
     return (
-        <StyledNavToggler menuIsCollapsed={getMenuIsCollapsed(applicationState)}>
+        <StyledNavToggler $menuIsCollapsed={getMenuIsCollapsed(applicationState)}>
             <button onClick={(): void => dispatch(toggleMenu())}>
                 <ChevronLeft />
             </button>

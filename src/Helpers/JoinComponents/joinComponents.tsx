@@ -1,7 +1,7 @@
 import React from 'react';
 
 const joinComponents =
-    (...components: React.ComponentClass[]): React.FC =>
+    (...components: React.ExoticComponent[]): React.FC =>
     // eslint-disable-next-line react/display-name
     (): React.ReactElement =>
         (

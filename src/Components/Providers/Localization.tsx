@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import nlLocale from 'date-fns/locale/nl';
 
 import { ReactPropsWithChildren } from '../../Helpers/ReactPropsWithChildren';
 
+import 'dayjs/locale/nl';
+
 const Localization: React.FC<ReactPropsWithChildren> = ({ children }) => (
-    <LocalizationProvider dateAdapter={AdapterDateFns} locale={nlLocale}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}  adapterLocale="nl">
         {children}
     </LocalizationProvider>
 );

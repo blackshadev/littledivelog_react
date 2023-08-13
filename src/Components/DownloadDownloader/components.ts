@@ -1,4 +1,4 @@
-import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import colors from '../../Styling/Constants/colors';
 import fontSize from '../../Styling/Constants/fontSize';
@@ -31,7 +31,7 @@ export const FileItem = styled.li<{ isCurrentPlatform: boolean }>`
         max-width: 350px;
         align-items: center;
 
-        ${({ isCurrentPlatform }): FlattenSimpleInterpolation => css`
+        ${({ isCurrentPlatform }): ReturnType<typeof css> => css`
             background: ${isCurrentPlatform ? colors.accent : colors.background};
             color: ${isCurrentPlatform ? colors.background : colors.accent};
         `}

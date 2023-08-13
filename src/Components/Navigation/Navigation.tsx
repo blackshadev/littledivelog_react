@@ -30,7 +30,7 @@ const Navigation: React.FC = () => {
     }, [authState.refreshToken, dispatch]);
 
     return (
-        <Nav isCollapsed={getMenuIsCollapsed(applicationState)}>
+        <Nav $isCollapsed={getMenuIsCollapsed(applicationState)}>
             {!isLoggedIn && (
                 <NavSection>
                     <NavItem icon={<Login />} to={route(Route.Login)}>

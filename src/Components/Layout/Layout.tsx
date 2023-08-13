@@ -13,7 +13,7 @@ export default function Layout(): React.ReactElement {
     const [appState] = useContext(ApplicationContext);
 
     return (
-        <Container menuIsCollapsed={getMenuIsCollapsed(appState)}>
+        <Container $menuIsCollapsed={getMenuIsCollapsed(appState)}>
             <UrlMessageToNofiticationBridge />
             <Navigation />
             <Main>

@@ -7,11 +7,12 @@ import { initialState } from './state';
 export const appReducer = createReducer(initialState, (builder) =>
     builder
         .addCase(notify, (state, action) => {
-            const message = { key: randomString(16), ...action.payload };
+            const originalKey = action.payload.key;
+            const message = { ...action.payload, key: randomString(16) };
 
             if (
-                action.payload.key !== undefined &&
-                state.messages.find((msg) => msg.key === action.payload.key) !== undefined
+                originalKey !== undefined &&
+                state.messages.find((msg) => msg.key === originalKey) !== undefined
             ) {
                 return state;
             }
