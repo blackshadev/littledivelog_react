@@ -1,12 +1,13 @@
-export default function formatDivetime(value: number | null): string {
+export default function formatDivetime(value: number | {valueOf(): number} | null): string {
     if (!value) {
         return '';
     }
 
+    const numValue: number = +value;
     const t = {
-        hh: leftpad(2, Math.floor(value / 3600).toFixed(0), '0'),
-        mm: leftpad(2, (Math.floor(value / 60) % 60).toFixed(0), '0'),
-        ss: leftpad(2, Math.floor(value % 60).toFixed(0), '0'),
+        hh: leftpad(2, Math.floor(numValue / 3600).toFixed(0), '0'),
+        mm: leftpad(2, (Math.floor(numValue / 60) % 60).toFixed(0), '0'),
+        ss: leftpad(2, Math.floor(numValue % 60).toFixed(0), '0'),
     };
 
     return `${t.hh}:${t.mm}:${t.ss}`;

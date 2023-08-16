@@ -41,8 +41,8 @@ export default class GraphOptions {
     }
 
     private constructor(private axis: Axis, private _canvas: Size, private margins: Margins) {
-        axis.x.range([0, this.graph.width]);
-        axis.y.range([0, this.graph.height]);
+        axis.x.range([0, this.graphSize.width]);
+        axis.y.range([0, this.graphSize.height]);
     }
 
     public withCanvasSize(canvas: Size): GraphOptions {
@@ -59,7 +59,7 @@ export default class GraphOptions {
     }
 
     public withMargins(margins: Margins): GraphOptions {
-        return new GraphOptions(this.axis, this.canvas, margins);
+        return new GraphOptions(this.axis, this.canvasSize, margins);
     }
 
     public withDomain(domain: { x: [number, number]; y: [number, number] }): GraphOptions {
@@ -70,37 +70,37 @@ export default class GraphOptions {
         axis.x.domain(domain.x);
         axis.y.domain(domain.y);
 
-        return new GraphOptions(axis, this.canvas, this.margins);
+        return new GraphOptions(axis, this.canvasSize, this.margins);
     }
 
     public margin(key: keyof Margins): number {
         return this.margins[key];
     }
 
-    public get graph(): Size {
+    public get graphSize(): Size {
         return {
-            height: this.canvas.height - this.margins.top - this.margins.bottom,
-            width: this.canvas.width - this.margins.left - this.margins.right,
+            height: this.canvasSize.height - this.margins.top - this.margins.bottom,
+            width: this.canvasSize.width - this.margins.left - this.margins.right,
         };
     }
 
     public get bottomAxisPosition(): string {
-        return `translate(${this.margins.left}, ${this.canvas.height - this.margins.bottom})`;
+        return `translate(${this.margins.left}, ${this.canvasSize.height - this.margins.bottom})`;
     }
 
     public get leftAxisPosition(): string {
         return `translate(${this.margins.left}, ${this.margins.top})`;
     }
 
-    public get x(): d3.ScaleContinuousNumeric<number, number, never> {
+    public get xScale(): d3.ScaleContinuousNumeric<number, number, never> {
         return this.axis.x;
     }
 
-    public get y(): d3.ScaleContinuousNumeric<number, number, never> {
+    public get yScale(): d3.ScaleContinuousNumeric<number, number, never> {
         return this.axis.y;
     }
 
-    public get canvas(): Size {
+    public get canvasSize(): Size {
         return this._canvas;
     }
 }

@@ -1,3 +1,3 @@
-import DiveProfile from './BoundDiveProfile';
+import DiveProfile from './DiveProfile';
 
 export default DiveProfile;

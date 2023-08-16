@@ -29,13 +29,20 @@ const Line: React.FC<Props> = ({ samples, graphOptions, getPoint }) => {
         const line = d3
             .line<DiveSample>()
             .curve(d3.curveMonotoneX)
-            .x((datum, index, data) => graphOptions.x(getPoint(datum, index, data).x))
-            .y((datum, index, data) => graphOptions.y(getPoint(datum, index, data).y));
+            .x((datum, index, data) => graphOptions.xScale(getPoint(datum, index, data).x))
+            .y((datum, index, data) => graphOptions.yScale(getPoint(datum, index, data).y));
 
-        group.enter().append('path').attr('d', line(samples));
-        group.transition().duration(500).attr('d', line(samples));
+        group.enter()
+            .append('path')
+            .attr('d', line(samples));
 
-        group.exit().remove();
+        group.transition()
+            .duration(500)
+            .attr('d', line(samples));
+
+        group.exit()
+            .remove();
+
     }, [samples, graphOptions, getPoint]);
 
     return <StyledLineGroup ref={ref}></StyledLineGroup>;
