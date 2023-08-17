@@ -1,72 +1,45 @@
-import { MouseEvent, ReactNode, useRef, useState } from 'react';
+import React, { ReactNode, useRef } from 'react';
 
 import * as d3 from 'd3';
 
-import { DiveProfile as DiveProfileData, DiveSample } from '../../../api/types/dives/DiveProfile';
-import useGraphAxes from './hooks/useGraphAxes';
-import useGraphCanvas from './hooks/useGraphCanvas';
-import useGraphOptions from './hooks/useGraphOptions';
-import { ProfileSvg } from './components';
-import GraphOptions from './GraphOptions';
-import Line from './Line';
-import Selection from './Selection';
+import { DiveProfile, DiveSample } from '../../../api/types/dives/DiveProfile';
+import GraphOptions from './utils/GraphOptions';
+import { StyledLineGroup } from './components';
 
 type Props = {
-    samples: DiveProfileData;
-    onSelectSample?: (dive: DiveSample, position: { x: number; y: number }) => void;
+    samples: DiveProfile;
+    graphOptions: GraphOptions;
+    getPoint(d: DiveSample, index: number, data: DiveSample[]): { x: number; y: number };
 };
-type SamplesWithDepth = Array<DiveSample & { Depth: number }>;
 
-function getPoint(datum: DiveProfileData[number]): { x: number; y: number } {
-    return { x: datum.Time, y: datum.Depth ?? 0 };
-}
-
-const bisector = d3.bisector<DiveSample, number>((sample) => sample.Time).center;
-
-function getClosestSample(samples: DiveProfileData, target: number, options: GraphOptions): DiveSample {
-    const mouseTime = options.xScale.invert(target - options.margin('left'));
-    const iX = bisector(samples, mouseTime);
-    return samples[iX];
-}
-
-export default function DepthGraph({ samples, onSelectSample }: Props): ReactNode {
+export default function DepthGraph({ samples, graphOptions, getPoint }: Props): ReactNode {
     const ref = useRef<SVGSVGElement>(null);
-    const [selectedSample, selectSample] = useState<DiveSample | undefined>(undefined);
 
-    const samplesWithDepth = samples.filter((s) => s.Depth !== null) as SamplesWithDepth;
+    React.useEffect(() => {
+        if (ref.current === null) {
+            return;
+        }
 
-    const graphOptions = useGraphOptions(ref, samplesWithDepth, {
-        margins: {
-            bottom: 30,
-            left: 5,
-            right: 5,
-            top: 10,
-        },
-        padding: 20,
-        x: 'Time',
-        y: 'Depth',
-    });
+        const group = d3
+            .select(ref.current)
+            .attr('transform', `translate(${graphOptions.margin('left')}, ${graphOptions.margin('top')})`)
+            .selectAll('path')
+            .data([samples]);
 
-    useGraphCanvas(ref, graphOptions.canvasSize);
-    useGraphAxes(ref, graphOptions, { bottom: '.bottom-axis', left: '.left-axis' });
+        const line = d3
+            .line<DiveSample>()
+            .curve(d3.curveMonotoneX)
+            .x((datum, index, data) => graphOptions.xScale(getPoint(datum, index, data).x))
+            .y((datum, index, data) => graphOptions.yScale(getPoint(datum, index, data).y));
 
-    function selectPoint(ev: MouseEvent<SVGElement>): void {
-        const mouse = d3.pointer(ev);
+        group.enter().append('path').attr('d', line(samples));
 
-        const sample = getClosestSample(samples, mouse[0], graphOptions);
-        selectSample(sample);
-        onSelectSample?.(sample, {
-            x: graphOptions.xScale(sample.Time) + graphOptions.margin('left'),
-            y: graphOptions.yScale(sample.Depth ?? 0) + graphOptions.margin('top'),
-        });
-    }
+        group.transition().duration(500).attr('d', line(samples));
 
-    return (
-        <ProfileSvg ref={ref} onClick={selectPoint}>
-            <Line samples={samples} graphOptions={graphOptions} getPoint={getPoint} />
-            <Selection sample={selectedSample} graphOptions={graphOptions} />
-            <g className="left-axis" />
-            <g className="bottom-axis" />
-        </ProfileSvg>
-    );
+        group.exit().remove();
+
+        return () => {};
+    }, [samples, graphOptions, getPoint]);
+
+    return <StyledLineGroup ref={ref}></StyledLineGroup>;
 }

@@ -20,6 +20,7 @@ export const SelectedSampleContainer = styled.dl<{ $position?: { x: number; y: n
     border-radius: ${misc.roundedBorders};
     border: 1px solid ${colors.accent};
     background-color: ${colors.background};
+    pointer-events: none;
 `;
 
 export const SelectedSampleLabel = styled.dt`

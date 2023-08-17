@@ -4,7 +4,7 @@ import { getSamples } from '../../api/dives';
 import { DiveSample } from '../../api/types/dives/DiveProfile';
 import useApiData from '../../Context/Auth/callApi';
 import formatDivetime from '../../Helpers/Formatters/formatDiveTime';
-import DepthGraph from './Graph/DepthGraph';
+import DiveProfileVisual from './Graph/DiveProfileVisual';
 import { DiveProfileContainer, SelectedSampleContainer, SelectedSampleLabel, SelectedSampleValue } from './components';
 
 type Props = {
@@ -33,7 +33,7 @@ export default function DiveProfile({ diveId }: Props): ReactNode {
                 <SelectedSampleValue>{selectedSample?.Temperature ?? '0.0'}</SelectedSampleValue>
             </SelectedSampleContainer>
 
-            <DepthGraph
+            <DiveProfileVisual
                 samples={samples.data}
                 onSelectSample={(sample, position): void => {
                     setSelectedSample(sample);

@@ -3,7 +3,7 @@ import { RefObject, useEffect } from 'react';
 import * as d3 from 'd3';
 
 import formatDivetime from '../../../../Helpers/Formatters/formatDiveTime';
-import GraphOptions from '../GraphOptions';
+import GraphOptions from '../utils/GraphOptions';
 
 export default function useGraphAxes(
     ref: RefObject<Element>,

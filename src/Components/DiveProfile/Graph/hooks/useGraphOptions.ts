@@ -3,7 +3,7 @@ import { RefObject, useMemo } from 'react';
 import * as d3 from 'd3';
 
 import useResize from '../../../../Helpers/useResize';
-import GraphOptions from '../GraphOptions';
+import GraphOptions from '../utils/GraphOptions';
 
 type NumericalKeys<T> = {
     [K in keyof T]: T[K] extends number ? K : never;

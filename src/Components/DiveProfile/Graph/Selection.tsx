@@ -3,8 +3,8 @@ import { ReactNode, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 import { DiveSample } from '../../../api/types/dives/DiveProfile';
+import GraphOptions from './utils/GraphOptions';
 import { SelectionGroup } from './components';
-import GraphOptions from './GraphOptions';
 
 type Props = { sample: DiveSample | undefined; graphOptions: GraphOptions };
 
@@ -37,9 +37,7 @@ export default function Selection({ sample, graphOptions }: Props): ReactNode {
 
         selection.exit().remove();
 
-        return () => {
-            /**/
-        };
+        return () => {};
     }, [sample, ref, graphOptions]);
 
     return <SelectionGroup ref={ref} />;
