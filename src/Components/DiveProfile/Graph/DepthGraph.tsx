@@ -13,7 +13,7 @@ import Selection from './Selection';
 
 type Props = {
     samples: DiveProfileData;
-    onSelectSample?: (dive: DiveSample) => void;
+    onSelectSample?: (dive: DiveSample, position: { x: number; y: number }) => void;
 };
 type SamplesWithDepth = Array<DiveSample & { Depth: number }>;
 
@@ -55,7 +55,10 @@ export default function DepthGraph({ samples, onSelectSample }: Props): ReactNod
 
         const sample = getClosestSample(samples, mouse[0], graphOptions);
         selectSample(sample);
-        onSelectSample?.(sample);
+        onSelectSample?.(sample, {
+            x: graphOptions.xScale(sample.Time) + graphOptions.margin('left'),
+            y: graphOptions.yScale(sample.Depth ?? 0) + graphOptions.margin('top'),
+        });
     }
 
     return (

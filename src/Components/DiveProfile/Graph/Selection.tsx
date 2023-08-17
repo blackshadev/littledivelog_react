@@ -22,7 +22,12 @@ export default function Selection({ sample, graphOptions }: Props): ReactNode {
             .selectAll('circle')
             .data(sample ? [sample] : []);
 
-        selection.enter().append('circle').attr('r', 7);
+        selection
+            .enter()
+            .append('circle')
+            .attr('r', 7)
+            .attr('cx', (s: DiveSample) => graphOptions.xScale(s.Time))
+            .attr('cy', (s: DiveSample) => graphOptions.yScale(s.Depth ?? 0));
 
         selection
             .transition()
