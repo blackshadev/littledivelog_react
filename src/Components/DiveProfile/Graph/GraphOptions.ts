@@ -40,7 +40,11 @@ export default class GraphOptions {
         );
     }
 
-    private constructor(private axis: Axis, private _canvas: Size, private margins: Margins) {
+    private constructor(
+        private axis: Axis,
+        private _canvas: Size,
+        private margins: Margins,
+    ) {
         axis.x.range([0, this.graphSize.width]);
         axis.y.range([0, this.graphSize.height]);
     }

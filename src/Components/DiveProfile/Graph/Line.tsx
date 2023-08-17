@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { ReactNode, useRef } from 'react';
 
 import * as d3 from 'd3';
 
@@ -12,7 +12,7 @@ type Props = {
     getPoint(d: DiveSample, index: number, data: DiveSample[]): { x: number; y: number };
 };
 
-const Line: React.FC<Props> = ({ samples, graphOptions, getPoint }) => {
+export default function Line({ samples, graphOptions, getPoint }: Props): ReactNode {
     const ref = useRef<SVGSVGElement>(null);
 
     React.useEffect(() => {
@@ -32,20 +32,12 @@ const Line: React.FC<Props> = ({ samples, graphOptions, getPoint }) => {
             .x((datum, index, data) => graphOptions.xScale(getPoint(datum, index, data).x))
             .y((datum, index, data) => graphOptions.yScale(getPoint(datum, index, data).y));
 
-        group.enter()
-            .append('path')
-            .attr('d', line(samples));
+        group.enter().append('path').attr('d', line(samples));
 
-        group.transition()
-            .duration(500)
-            .attr('d', line(samples));
+        group.transition().duration(500).attr('d', line(samples));
 
-        group.exit()
-            .remove();
-
+        group.exit().remove();
     }, [samples, graphOptions, getPoint]);
 
     return <StyledLineGroup ref={ref}></StyledLineGroup>;
-};
-
-export default Line;
+}

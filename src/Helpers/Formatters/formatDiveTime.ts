@@ -1,4 +1,4 @@
-export default function formatDivetime(value: number | {valueOf(): number} | null): string {
+export default function formatDivetime(value: number | { valueOf(): number } | null): string {
     if (!value) {
         return '';
     }

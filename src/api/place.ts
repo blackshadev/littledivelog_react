@@ -12,14 +12,11 @@ export async function listPlaces(
         country?: string;
     } = {},
 ): Promise<Place[]> {
-    const promise = axios.get<Place[]>(
-        `${apiURL}/places/_search?${buildQueryString(search)}`,
-        {
-            headers: {
-                ...withAuthorizationToken(accessToken),
-            },
+    const promise = axios.get<Place[]>(`${apiURL}/places/_search?${buildQueryString(search)}`, {
+        headers: {
+            ...withAuthorizationToken(accessToken),
         },
-    );
+    });
     const response = await handleServerError(promise);
 
     return response.data;
@@ -29,9 +26,7 @@ function buildQueryString(params: { [qs: string]: string }): string {
     return Object.keys(params)
         .filter((key) => !!params[key])
         .map((key) => {
-            return (
-                encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
-            );
+            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
         })
         .join('&');
 }

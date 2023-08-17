@@ -34,7 +34,7 @@ export function useApiState<T extends unknown[], R>(
                 ...state,
                 ...newState,
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            } as any),
+            }) as any,
         {
             data: undefined,
             loading: true,

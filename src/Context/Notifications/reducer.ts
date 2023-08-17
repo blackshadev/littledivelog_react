@@ -10,10 +10,7 @@ export const appReducer = createReducer(initialState, (builder) =>
             const originalKey = action.payload.key;
             const message = { ...action.payload, key: randomString(16) };
 
-            if (
-                originalKey !== undefined &&
-                state.messages.find((msg) => msg.key === originalKey) !== undefined
-            ) {
+            if (originalKey !== undefined && state.messages.find((msg) => msg.key === originalKey) !== undefined) {
                 return state;
             }
 

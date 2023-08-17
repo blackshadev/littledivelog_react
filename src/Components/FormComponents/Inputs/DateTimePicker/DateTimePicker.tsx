@@ -9,7 +9,7 @@ type FormInputProps = React.ComponentProps<typeof TextField> & {
     name: string;
     label: string;
     placeholder: string;
-    value: string|Date;
+    value: string | Date;
     onValueChange(value: unknown): void;
 };
 
@@ -17,10 +17,10 @@ const DateTimePicker: React.FC<FormInputProps> = ({ name, label, placeholder, on
     return (
         <MUIDateTimePicker
             ampm={false}
-            format='DD-MM-YYYY HH:mm'
+            format="DD-MM-YYYY HH:mm"
             onChange={(date: unknown): void => {
                 if (dayjs.isDayjs(date)) {
-                    date = date.format("YYYY-MM-DDTHH:mm");
+                    date = date.format('YYYY-MM-DDTHH:mm');
                 }
 
                 onValueChange?.(date);

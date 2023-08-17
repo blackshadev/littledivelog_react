@@ -8,7 +8,7 @@ import { ReactPropsWithChildren } from '../../Helpers/ReactPropsWithChildren';
 import 'dayjs/locale/nl';
 
 const Localization: React.FC<ReactPropsWithChildren> = ({ children }) => (
-    <LocalizationProvider dateAdapter={AdapterDayjs}  adapterLocale="nl">
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="nl">
         {children}
     </LocalizationProvider>
 );

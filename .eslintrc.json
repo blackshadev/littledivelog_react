@@ -12,7 +12,8 @@
     "plugins": [
         "simple-import-sort",
         "sort-keys-fix",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -26,6 +27,7 @@
         }
     },
     "rules": {
+        "prettier/prettier": "error",
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
         "simple-import-sort/imports": ["error", {

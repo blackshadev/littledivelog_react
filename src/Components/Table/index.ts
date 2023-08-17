@@ -1,9 +1,1 @@
-export {
-    Cell,
-    HeaderCell,
-    HeaderRow,
-    Row,
-    Table,
-    TableBody,
-    TableHead,
-} from './components';
+export { Cell, HeaderCell, HeaderRow, Row, Table, TableBody, TableHead } from './components';
