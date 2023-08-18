@@ -31,10 +31,7 @@ export default function useGraphOptions<T extends object, X extends NumericalKey
             d3.min(data, (d): number => d[options.x]) ?? 0,
             d3.max(data, (d): number => d[options.x]) ?? 0,
         ];
-        const [minY, maxY] = [
-            d3.min(data, (d): number => d[options.y]) ?? 0,
-            d3.max(data, (d): number => d[options.y]) ?? 0,
-        ];
+        const [minY, maxY] = [0, d3.max(data, (d): number => d[options.y]) ?? 0];
 
         return GraphOptions.Linear()
             .withCanvasSize({

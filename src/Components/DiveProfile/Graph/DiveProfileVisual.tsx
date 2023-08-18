@@ -1,15 +1,13 @@
-import { MouseEvent, ReactNode, useRef, useState } from 'react';
-
-import * as d3 from 'd3';
+import { ReactNode, useRef } from 'react';
 
 import { DiveProfile as DiveProfileData, DiveSample } from '../../../api/types/dives/DiveProfile';
 import useGraphAxes from './hooks/useGraphAxes';
 import useGraphCanvas from './hooks/useGraphCanvas';
 import useGraphOptions from './hooks/useGraphOptions';
-import getClosestSample from './utils/getClosestSample';
 import { ProfileSvg } from './components';
 import Cursor from './Cursor';
 import DepthGraph from './DepthGraph';
+import Events from './Events';
 import Selection from './Selection';
 
 type Props = {
@@ -24,10 +22,6 @@ function getPoint(datum: DiveProfileData[number]): { x: number; y: number } {
 
 export default function DiveProfileVisual({ samples, onSelectSample }: Props): ReactNode {
     const ref = useRef<SVGSVGElement>(null);
-    const [selectedSample, selectSample] = useState<DiveSample | undefined>(undefined);
-    const [hover, setHover] = useState<{ sample: DiveSample; position: { x: number; y: number } } | undefined>(
-        undefined,
-    );
 
     const samplesWithDepth = samples.filter((s) => s.Depth !== null) as SamplesWithDepth;
 
@@ -46,31 +40,12 @@ export default function DiveProfileVisual({ samples, onSelectSample }: Props): R
     useGraphCanvas(ref, graphOptions.canvasSize);
     useGraphAxes(ref, graphOptions, { bottom: '.bottom-axis', left: '.left-axis' });
 
-    function selectPoint(ev: MouseEvent<SVGElement>): void {
-        const mouse = d3.pointer(ev);
-
-        const sample = getClosestSample(samples, mouse[0], graphOptions);
-        selectSample(sample);
-        onSelectSample?.(sample, {
-            x: graphOptions.xScale(sample.Time) + graphOptions.margin('left'),
-            y: graphOptions.yScale(sample.Depth ?? 0) + graphOptions.margin('top'),
-        });
-    }
-
     return (
-        <ProfileSvg
-            ref={ref}
-            onClick={selectPoint}
-            onMouseMove={(ev): void => {
-                const pos = d3.pointer(ev);
-                const sample = getClosestSample(samples, pos[0], graphOptions);
-                setHover({ position: { x: pos[0], y: pos[1] }, sample });
-            }}
-            onMouseLeave={(): void => setHover(undefined)}
-        >
+        <ProfileSvg ref={ref}>
             <DepthGraph samples={samples} graphOptions={graphOptions} getPoint={getPoint} />
-            <Selection sample={selectedSample} graphOptions={graphOptions} />
-            <Cursor graphOptions={graphOptions} sample={hover?.sample} />
+            <Selection target={ref} samples={samples} graphOptions={graphOptions} onSelect={onSelectSample} />
+            <Cursor target={ref} graphOptions={graphOptions} samples={samples} />
+            <Events graphOptions={graphOptions} samples={samples} />
             <g className="left-axis" />
             <g className="bottom-axis" />
         </ProfileSvg>

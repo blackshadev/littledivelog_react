@@ -33,3 +33,7 @@ export const HoverTextLeft = styled.text`
     font-size: 10px;
     transform: translateX(10px);
 `;
+
+export const EventsGroup = styled.g`
+    fill: coral;
+`;

@@ -5,4 +5,5 @@ export type DiveSample = {
     Depth?: number;
     Temperature?: number;
     Pressure?: { Pressure: number; Tank: number }[];
+    Events?: unknown[];
 };

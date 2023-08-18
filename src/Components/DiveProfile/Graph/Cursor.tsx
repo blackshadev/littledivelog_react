@@ -1,16 +1,56 @@
-import { ReactNode, useRef } from 'react';
+import { ReactNode, RefObject, useEffect, useRef, useState } from 'react';
+
+import * as d3 from 'd3';
 
 import { DiveSample } from '../../../api/types/dives/DiveProfile';
 import formatDivetime from '../../../Helpers/Formatters/formatDiveTime';
+import getClosestSample from './utils/getClosestSample';
 import GraphOptions from './utils/GraphOptions';
 import { HoverGroup, HoverLine, HoverTextBottom, HoverTextLeft } from './components';
 
 type Props = {
     graphOptions: GraphOptions;
-    sample?: DiveSample;
+    samples: DiveSample[];
+    target: RefObject<SVGSVGElement>;
 };
 
-export default function Cursor({ graphOptions, sample }: Props): ReactNode {
+function useMouseToFindSample({ graphOptions, samples, target }: Props): [DiveSample | undefined] {
+    const [sample, setSample] = useState<DiveSample | undefined>(undefined);
+
+    useEffect(() => {
+        const eventTarget = target.current;
+        if (!eventTarget) {
+            return;
+        }
+
+        const mouseMove = (ev: MouseEvent): void => {
+            const pos = d3.pointer(ev);
+            const sample = getClosestSample(samples, pos[0], graphOptions);
+            setSample(sample);
+        };
+        const mouseLeave = (): void => {
+            setSample(undefined);
+        };
+
+        eventTarget.addEventListener('mousemove', mouseMove);
+        eventTarget.addEventListener('mouseleave', mouseLeave);
+
+        return () => {
+            if (!eventTarget) {
+                return;
+            }
+
+            eventTarget.removeEventListener('mousemove', mouseMove);
+            eventTarget.removeEventListener('mouseleave', mouseLeave);
+        };
+    }, [target, graphOptions, samples]);
+
+    return [sample];
+}
+
+export default function Cursor({ graphOptions, samples, target }: Props): ReactNode {
+    const [sample] = useMouseToFindSample({ graphOptions, samples, target });
+
     const ref = useRef<SVGLineElement>(null);
 
     const x = graphOptions.xScale(sample?.Time ?? 0);
