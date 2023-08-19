@@ -2,10 +2,10 @@ import { ReactNode, RefObject, useEffect, useRef, useState } from 'react';
 
 import * as d3 from 'd3';
 
-import { DiveSample } from '../../../api/types/dives/DiveProfile';
-import formatDivetime from '../../../Helpers/Formatters/formatDiveTime';
-import getClosestSample from './utils/getClosestSample';
-import GraphOptions from './utils/GraphOptions';
+import { DiveSample } from '../../../../../api/types/dives/DiveProfile';
+import formatDivetime from '../../../../../Helpers/Formatters/formatDiveTime';
+import getClosestSample from '../../utils/getClosestSample';
+import GraphOptions from '../../utils/GraphOptions';
 import { HoverGroup, HoverLine, HoverTextBottom, HoverTextLeft } from './components';
 
 type Props = {

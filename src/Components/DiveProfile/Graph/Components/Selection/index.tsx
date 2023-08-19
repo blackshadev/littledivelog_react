@@ -2,9 +2,9 @@ import { ReactNode, RefObject, useEffect, useState } from 'react';
 
 import * as d3 from 'd3';
 
-import { DiveSample } from '../../../api/types/dives/DiveProfile';
-import getClosestSample from './utils/getClosestSample';
-import GraphOptions from './utils/GraphOptions';
+import { DiveSample } from '../../../../../api/types/dives/DiveProfile';
+import getClosestSample from '../../utils/getClosestSample';
+import GraphOptions from '../../utils/GraphOptions';
 import { SelectionGroup } from './components';
 
 type Props = {

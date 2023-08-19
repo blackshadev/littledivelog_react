@@ -3,9 +3,9 @@ import { ReactNode, useState } from 'react';
 import { getSamples } from '../../api/dives';
 import { DiveSample } from '../../api/types/dives/DiveProfile';
 import useApiData from '../../Context/Auth/callApi';
-import formatDivetime from '../../Helpers/Formatters/formatDiveTime';
 import DiveProfileVisual from './Graph/DiveProfileVisual';
-import { DiveProfileContainer, SelectedSampleContainer, SelectedSampleLabel, SelectedSampleValue } from './components';
+import { DiveProfileContainer } from './components';
+import SelectedSample from './SelectedSample';
 
 type Props = {
     diveId: number;
@@ -22,16 +22,7 @@ export default function DiveProfile({ diveId }: Props): ReactNode {
 
     return (
         <DiveProfileContainer>
-            <SelectedSampleContainer $position={samplePosition}>
-                <SelectedSampleLabel>Time</SelectedSampleLabel>
-                <SelectedSampleValue>
-                    {selectedSample ? formatDivetime(selectedSample.Time) : '00:00:00'}
-                </SelectedSampleValue>
-                <SelectedSampleLabel>Depth</SelectedSampleLabel>
-                <SelectedSampleValue>{(selectedSample?.Depth ?? 0).toFixed(1)}</SelectedSampleValue>
-                <SelectedSampleLabel>Temperature</SelectedSampleLabel>
-                <SelectedSampleValue>{selectedSample?.Temperature ?? '0.0'}</SelectedSampleValue>
-            </SelectedSampleContainer>
+            <SelectedSample sample={selectedSample} position={samplePosition} />
 
             <DiveProfileVisual
                 samples={samples.data}

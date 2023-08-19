@@ -1,7 +1,7 @@
 import { ReactNode, useMemo } from 'react';
 
-import { DiveSample } from '../../../api/types/dives/DiveProfile';
-import GraphOptions from './utils/GraphOptions';
+import { DiveSample } from '../../../../../api/types/dives/DiveProfile';
+import GraphOptions from '../../utils/GraphOptions';
 import { EventsGroup } from './components';
 
 type Props = {
@@ -11,7 +11,6 @@ type Props = {
 
 export default function Events({ samples, graphOptions }: Props): ReactNode {
     const eventSamples = useMemo(() => samples.filter((s) => !!s.Events?.length), [samples]);
-    console.log(eventSamples);
 
     return (
         <EventsGroup transform={`translate(${graphOptions.margin('left')}, ${graphOptions.margin('top')})`}>

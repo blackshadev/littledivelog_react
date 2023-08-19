@@ -1,14 +1,14 @@
 import { ReactNode, useRef } from 'react';
 
 import { DiveProfile as DiveProfileData, DiveSample } from '../../../api/types/dives/DiveProfile';
+import Cursor from './Components/Cursor';
+import DepthGraph from './Components/DepthLine';
+import Events from './Components/Events';
+import Selection from './Components/Selection';
 import useGraphAxes from './hooks/useGraphAxes';
 import useGraphCanvas from './hooks/useGraphCanvas';
 import useGraphOptions from './hooks/useGraphOptions';
 import { ProfileSvg } from './components';
-import Cursor from './Cursor';
-import DepthGraph from './DepthGraph';
-import Events from './Events';
-import Selection from './Selection';
 
 type Props = {
     samples: DiveProfileData;

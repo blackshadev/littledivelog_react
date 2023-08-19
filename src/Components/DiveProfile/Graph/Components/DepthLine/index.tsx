@@ -2,8 +2,8 @@ import React, { ReactNode, useRef } from 'react';
 
 import * as d3 from 'd3';
 
-import { DiveProfile, DiveSample } from '../../../api/types/dives/DiveProfile';
-import GraphOptions from './utils/GraphOptions';
+import { DiveProfile, DiveSample } from '../../../../../api/types/dives/DiveProfile';
+import GraphOptions from '../../utils/GraphOptions';
 import { StyledLineGroup } from './components';
 
 type Props = {
